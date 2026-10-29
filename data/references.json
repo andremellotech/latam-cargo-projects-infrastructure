@@ -1,0 +1,56 @@
+[
+ {
+  "pattern": "Curva S de CAPEX com PV, EV, AC, CPI e SPI",
+  "where": "Projetos e portfólio (curva S, EAC, SPI/CPI)",
+  "title": "EVM S-Curve visual (Microsoft Marketplace / Power BI)",
+  "url": "https://marketplace.microsoft.com/en-us/product/web-apps/abdalla_dabes.evm-s-curve-visual"
+ },
+ {
+  "pattern": "Painel de portfólio com saúde, CPI/SPI e semáforo por projeto",
+  "where": "Visão do consultor e Projetos (cartões, status, filtros cruzados)",
+  "title": "Power BI Project Portfolio Progress and Value Dashboard",
+  "url": "https://zoomcharts.com/en/microsoft-power-bi-custom-visuals/dashboard-and-report-examples/view/power-bi-project-portfolio-progress-and-value-dashboard"
+ },
+ {
+  "pattern": "Dashboard de portfólio com linha do tempo, indicadores de status e gráficos",
+  "where": "Projetos e portfólio (Gantt com semáforo)",
+  "title": "Project Portfolio Dashboards (Smartsheet)",
+  "url": "https://www.smartsheet.com/content/project-portfolio-dashboards"
+ },
+ {
+  "pattern": "Matriz impacto x esforço (ganhos rápidos, projetos estratégicos)",
+  "where": "Projetos e portfólio (priorização)",
+  "title": "Impact Effort Matrix Templates (Smartsheet)",
+  "url": "https://www.smartsheet.com/content/impact-effort-matrix-template"
+ },
+ {
+  "pattern": "Priorizar como consultor: sequenciar recomendações em um plano curto",
+  "where": "Visão do consultor (decisões e plano de 30, 60 e 90 dias)",
+  "title": "Impact-Effort Matrix: Prioritize Like a Consultant",
+  "url": "https://www.roadtooffer.com/blog/impact-effort-matrix"
+ },
+ {
+  "pattern": "KPIs de armazém: utilização de capacidade, tempo de permanência, tendência e valor atual",
+  "where": "Terminais e Indicadores",
+  "title": "Warehouse KPI Dashboards: setup guide, metrics and examples",
+  "url": "https://www.cleverence.com/articles/3pl-business/guide-to-setting-up-analytics-dashboards-for-warehouse-kpis-3942/"
+ },
+ {
+  "pattern": "Painel de capacidade e gargalos",
+  "where": "Terminais (ocupação x capacidade) e mapa por ocupação",
+  "title": "Warehouse Dashboard Examples: 10 Types and Key Metrics",
+  "url": "https://synkrato.com/guides/warehouse-dashboard-examples/"
+ },
+ {
+  "pattern": "Matriz de risco 5x5 (probabilidade x impacto)",
+  "where": "Riscos",
+  "title": "The Ultimate Guide to Risk Prioritization (Hyperproof)",
+  "url": "https://hyperproof.io/resource/the-ultimate-guide-to-risk-prioritization/"
+ },
+ {
+  "pattern": "Dashboard em vidro (glassmorphism) com cartões de análise, gráficos e menu lateral; abas com indicador ativo animado; barra de busca e navbar \"glassy\"",
+  "where": "Tema de vidro, menu com indicador deslizante, busca global e micro-interações (v2.3)",
+  "title": "CodeXR no Topmate: componentes de interface em React e CSS (o código é pago e não foi usado; só o padrão visual público)",
+  "url": "https://topmate.io/code_xr"
+ }
+]

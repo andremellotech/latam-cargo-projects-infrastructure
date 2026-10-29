@@ -1,0 +1,154 @@
+[
+ {
+  "id": "BC1",
+  "name": "Automação da triagem GRU (fase 2)",
+  "projectId": "P02",
+  "capex": 26000000,
+  "benefit": 9400000,
+  "opex": 1800000,
+  "years": 10,
+  "rate": 0.11,
+  "benefitGrowth": 0.03,
+  "opexGrowth": 0.03,
+  "residual": 3000000,
+  "breakdown": [
+   {
+    "label": "Saving de mão de obra",
+    "value": 4600000
+   },
+   {
+    "label": "Receita incremental",
+    "value": 3100000
+   },
+   {
+    "label": "Redução de perdas e avarias",
+    "value": 1700000
+   }
+  ],
+  "assumptions": "Ganho de produtividade de triagem e capacidade adicional para e-commerce; sem aumento de área."
+ },
+ {
+  "id": "BC2",
+  "name": "Expansão da armazenagem em Manaus",
+  "projectId": "P04",
+  "capex": 14200000,
+  "benefit": 5600000,
+  "opex": 1000000,
+  "years": 12,
+  "rate": 0.11,
+  "benefitGrowth": 0.03,
+  "opexGrowth": 0.03,
+  "residual": 2000000,
+  "breakdown": [
+   {
+    "label": "Receita incremental",
+    "value": 3600000
+   },
+   {
+    "label": "Penalidades e SLAs evitados",
+    "value": 1200000
+   },
+   {
+    "label": "Redução de perdas e avarias",
+    "value": 800000
+   }
+  ],
+  "assumptions": "Capacidade para o corredor com crescimento de demanda; premissa de CAPEX no orçamento original (ver EAC do projeto)."
+ },
+ {
+  "id": "BC3",
+  "name": "Câmaras frias para o pico de safra em Santiago",
+  "projectId": "P07",
+  "capex": 7400000,
+  "benefit": 3300000,
+  "opex": 500000,
+  "years": 10,
+  "rate": 0.11,
+  "benefitGrowth": 0.03,
+  "opexGrowth": 0.03,
+  "residual": 0,
+  "breakdown": [
+   {
+    "label": "Receita incremental",
+    "value": 2000000
+   },
+   {
+    "label": "Redução de perdas e avarias",
+    "value": 1300000
+   }
+  ],
+  "assumptions": "Capacidade dedicada à safra, com ocupação concentrada em poucos meses."
+ },
+ {
+  "id": "BC4",
+  "name": "Ampliação de docas e pátio em Guarulhos",
+  "projectId": "P03",
+  "capex": 21000000,
+  "benefit": 4300000,
+  "opex": 1400000,
+  "years": 12,
+  "rate": 0.11,
+  "benefitGrowth": 0.03,
+  "opexGrowth": 0.03,
+  "residual": 1500000,
+  "breakdown": [
+   {
+    "label": "Receita incremental",
+    "value": 2700000
+   },
+   {
+    "label": "Eficiência de custo logístico",
+    "value": 1600000
+   }
+  ],
+  "assumptions": "Retorno marginal: depende de crescimento de volume além do já previsto."
+ },
+ {
+  "id": "BC5",
+  "name": "Hub Fresh Santiago (fase 2)",
+  "projectId": "P15",
+  "capex": 15000000,
+  "benefit": 3400000,
+  "opex": 1300000,
+  "years": 10,
+  "rate": 0.11,
+  "benefitGrowth": 0.03,
+  "opexGrowth": 0.03,
+  "residual": 2000000,
+  "breakdown": [
+   {
+    "label": "Receita incremental",
+    "value": 2400000
+   },
+   {
+    "label": "Eficiência de custo logístico",
+    "value": 1000000
+   }
+  ],
+  "assumptions": "Premissa de volume incerta; sem contratos de demanda firmados."
+ },
+ {
+  "id": "BC6",
+  "name": "Módulo de mercadorias perigosas em Guarulhos",
+  "projectId": "P14",
+  "capex": 11000000,
+  "benefit": 2900000,
+  "opex": 800000,
+  "years": 10,
+  "rate": 0.11,
+  "benefitGrowth": 0.03,
+  "opexGrowth": 0.03,
+  "residual": 1000000,
+  "breakdown": [
+   {
+    "label": "Receita incremental",
+    "value": 2100000
+   },
+   {
+    "label": "Penalidades e SLAs evitados",
+    "value": 800000
+   }
+  ],
+  "assumptions": "Atende demanda hoje redirecionada a terceiros."
+ }
+]

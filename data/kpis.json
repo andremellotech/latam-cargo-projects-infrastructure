@@ -4,11 +4,11 @@
     "name": "Boeing 767 cargueiros",
     "value": 19,
     "unit": "aeronaves",
+    "note": "Comunicado de ago/2024 cita 21 (S9). Confirmar a frota vigente.",
     "sources": [
       "S1",
       "S9"
-    ],
-    "note": "Comunicado de ago/2024 cita 21 (S9). Confirmar a frota vigente."
+    ]
   },
   {
     "id": "K2",

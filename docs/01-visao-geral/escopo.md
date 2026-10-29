@@ -2,10 +2,11 @@
 
 Planejamento, otimização e gestão física e operacional das instalações de carga, armazéns e conexões terrestres que alimentam a malha aérea da LATAM Cargo.
 
-| Frente | Como o portal apoia |
-|---|---|
-| Expansão e melhoria de terminais | Mapa de atuação, score por localidade, matriz de verificação em campo |
-| Gestão de projetos logísticos | Marcos públicos, carteira interna opcional, ciclo de projeto |
-| Análise de indicadores | KPIs públicos e modelo de KPIs internos |
-| Modelagem de custos e business cases | Simulador de VPL, TIR, payback e sensibilidade |
-| Novos negócios | Hipóteses ligadas a evidências, com dados necessários para validar |
+| Frente | Como o portal apoia | Telas |
+|---|---|---|
+| Expansão e melhoria de terminais | Saúde por dimensão, capacidade e ocupação, diagnóstico em campo | Terminais, Mapa de atuação |
+| Gestão de projetos logísticos | Portfólio com valor agregado, cronograma, curva S, priorização e integração terrestre | Projetos e portfólio, Fornecedores e malha |
+| Análise de indicadores | KPIs por terminal com meta e semáforo, série de 12 meses | Indicadores, Terminais |
+| Modelagem de custos e business cases | VPL, TIR, payback, sensibilidade e simulador | Business cases |
+| Novos negócios | Pipeline com valor ponderado e hipóteses ligadas a evidências | Novos negócios |
+| Visão integrada para decisão | Mensagens-chave, decisões e plano de 30, 60 e 90 dias | Visão do consultor |

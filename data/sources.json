@@ -34,7 +34,7 @@
     "publisher": "LATAM Airlines — Sala de Imprensa (15/04/2026)",
     "type": "Oficial",
     "accessed": "2026-10-29",
-    "note": "URL conforme indexada pelo buscador (termina em hífen) e conteúdo conferido em 29/10/2026. Se o link não abrir, localize o comunicado pelo título na Sala de Imprensa. Corroborado por S3b.",
+    "note": "URL conforme indexada pelo buscador (termina em hífen). Se o link não abrir, localize o comunicado pelo título na Sala de Imprensa. Corroborado por S3b.",
     "facts": [
       "Ampliação do TECA de Guarulhos em operação desde 15/04/2026; +47% na área total dedicada ao e-commerce (considerando a expansão de 2025)",
       "2025: sistema automatizado de triagem com capacidade de até 72 mil pacotes/dia e expansão de 2,9 mil m²",
@@ -89,7 +89,7 @@
     "publisher": "LATAM Airlines",
     "type": "Oficial",
     "accessed": "2026-10-29",
-    "note": "Página voltada à experiência de passageiros; usada apenas para identificar os 4 principais hubs do grupo. Conteúdo conferido em 29/10/2026.",
+    "note": "Página voltada à experiência de passageiros; usada apenas para identificar os 4 principais hubs do grupo.",
     "facts": [
       "Quatro principais hubs: Santiago, Guarulhos (São Paulo), Lima e Bogotá"
     ]
@@ -131,7 +131,7 @@
     "publisher": "LATAM Airlines — Press room (09/08/2024)",
     "type": "Oficial",
     "accessed": "2026-10-29",
-    "note": "Cita 21 Boeing 767 cargueiros e 166 destinos em 33 países, número diferente do 'About Us' atual (19 cargueiros, +170 destinos). Usado apenas para registrar a divergência.",
+    "note": "Cita 21 Boeing 767 cargueiros e 166 destinos em 33 países, diferente do 'About Us' atual (19 cargueiros, +170 destinos). Usado para registrar a divergência.",
     "facts": [
       "21 Boeing 767 cargueiros em ago/2024",
       "166 destinos em 33 países, 18 exclusivos para carga"

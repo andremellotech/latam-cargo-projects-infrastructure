@@ -89,10 +89,6 @@
       "intl"
     ],
     "primaryLayer": "domestic",
-    "pinOffset": [
-      -58,
-      -22
-    ],
     "components": {
       "demand": 78,
       "network": 78,
@@ -116,6 +112,10 @@
       "Contingência e redundância da malha do Sudeste"
     ],
     "rationale": "Papel complementar; sem dados públicos de capacidade do terminal.",
+    "pinOffset": [
+      -58,
+      -22
+    ],
     "labelSide": "left"
   },
   {
