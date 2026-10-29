@@ -1,0 +1,24 @@
+[
+  {
+    "id": "GRU-MAO",
+    "from": "GRU",
+    "to": "MAO",
+    "weekly": 12,
+    "basis": "Divulgado: 12 voos cargueiros/semana",
+    "sources": [
+      "S3"
+    ]
+  },
+  {
+    "id": "VCP-MAO",
+    "from": "VCP",
+    "to": "MAO",
+    "weekly": 6,
+    "basis": "Derivado: 18 frequências da região (GRU+VCP) menos 12 de GRU; existência da rota Viracopos–Manaus confirmada em S7",
+    "sources": [
+      "S3",
+      "S7"
+    ],
+    "derived": true
+  }
+]

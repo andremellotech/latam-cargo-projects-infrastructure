@@ -1,0 +1,11 @@
+{
+  "name": "latam-cargo-projects-infrastructure",
+  "version": "1.0.1",
+  "private": true,
+  "description": "Portal analítico estático de projetos e infraestrutura de terminais de carga",
+  "scripts": {
+    "start": "python3 -m http.server 8080",
+    "validate": "node scripts/validate.mjs",
+    "test": "node scripts/validate.mjs && node scripts/smoke-test.mjs && node scripts/ui-test.js"
+  }
+}

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Portal analítico de projetos e infraestrutura de terminais de carga, com mapa de demanda e score por localidade.">
+  <title>Consultoria de Projetos e Infraestrutura | LATAM Cargo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#appContent">Ir para o conteúdo</a>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">PI</div>
+      <div><strong>Projetos &amp; Infraestrutura</strong><span>Cargas · portal analítico independente</span></div>
+    </div>
+    <div class="actions">
+      <button id="tvMode" class="btn" type="button" aria-pressed="false">Modo TV</button>
+      <button id="themeToggle" class="btn" type="button" aria-pressed="false">Tema</button>
+    </div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <nav aria-label="Navegação principal">
+        <button class="nav-item" data-view="overview" type="button">Visão geral</button>
+        <button class="nav-item" data-view="network" type="button">Mapa de atuação</button>
+        <button class="nav-item" data-view="locations" type="button">Localidades</button>
+        <button class="nav-item" data-view="projects" type="button">Projetos e marcos</button>
+        <button class="nav-item" data-view="kpis" type="button">Indicadores</button>
+        <button class="nav-item" data-view="business" type="button">Business case</button>
+        <button class="nav-item" data-view="opportunities" type="button">Novos negócios</button>
+        <button class="nav-item" data-view="governance" type="button">Governança e fontes</button>
+      </nav>
+      <div class="side-note"><b>Dados públicos</b><span>Fontes oficiais com data de acesso. Atualizado em <span id="dataUpdated">—</span>.</span></div>
+    </aside>
+    <main id="main">
+      <section class="hero">
+        <div><p class="eyebrow">LATAM CARGO · PROJETOS E INFRAESTRUTURA</p><h1 id="pageTitle">Visão geral</h1><p id="pageSubtitle" class="muted"></p></div>
+        <label class="filter">País<select id="countryFilter"><option value="all">Todos</option></select></label>
+      </section>
+      <div id="appContent" tabindex="-1" aria-live="polite"><p class="muted">Carregando…</p></div>
+      <footer>Ferramenta analítica independente, sem vínculo oficial. Scores são metodologia própria; fatos públicos citam fonte. Consulte <a href="#governance">Governança e fontes</a>.</footer>
+    </main>
+  </div>
+  <script src="js/core.js"></script>
+  <script src="js/views.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
