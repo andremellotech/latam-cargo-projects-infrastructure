@@ -1,0 +1,245 @@
+[
+ {
+  "id": "F01",
+  "name": "Provedor GH-A",
+  "type": "Ground handling",
+  "terminals": [
+   "GRU",
+   "VCP"
+  ],
+  "annualValue": 38000000,
+  "contractEnd": "2027-01-31",
+  "slaTarget": 95,
+  "sla": [
+   94.1,
+   93.8,
+   94.5,
+   93.9,
+   94.2,
+   93.6
+  ],
+  "costIndex": 110,
+  "safety": 4,
+  "responsiveness": 3,
+  "incidentsYtd": 9
+ },
+ {
+  "id": "F02",
+  "name": "Provedor GH-B",
+  "type": "Ground handling",
+  "terminals": [
+   "MAO"
+  ],
+  "annualValue": 9500000,
+  "contractEnd": "2027-06-30",
+  "slaTarget": 94,
+  "sla": [
+   91.8,
+   92.2,
+   91.5,
+   92.0,
+   91.2,
+   91.0
+  ],
+  "costIndex": 118,
+  "safety": 3,
+  "responsiveness": 3,
+  "incidentsYtd": 7
+ },
+ {
+  "id": "F03",
+  "name": "Provedor GH-C",
+  "type": "Ground handling",
+  "terminals": [
+   "MIA"
+  ],
+  "annualValue": 31000000,
+  "contractEnd": "2028-03-31",
+  "slaTarget": 96,
+  "sla": [
+   96.2,
+   96.5,
+   96.0,
+   96.4,
+   96.8,
+   96.3
+  ],
+  "costIndex": 98,
+  "safety": 5,
+  "responsiveness": 4,
+  "incidentsYtd": 2
+ },
+ {
+  "id": "F04",
+  "name": "Provedor GH-D",
+  "type": "Ground handling",
+  "terminals": [
+   "SCL",
+   "LIM"
+  ],
+  "annualValue": 17000000,
+  "contractEnd": "2026-12-31",
+  "slaTarget": 95,
+  "sla": [
+   95.5,
+   95.1,
+   94.8,
+   94.0,
+   93.5,
+   93.2
+  ],
+  "costIndex": 103,
+  "safety": 4,
+  "responsiveness": 4,
+  "incidentsYtd": 4
+ },
+ {
+  "id": "F05",
+  "name": "Transportadora R1",
+  "type": "Transporte rodoviário",
+  "terminals": [
+   "GRU",
+   "VCP"
+  ],
+  "annualValue": 22000000,
+  "contractEnd": "2027-08-31",
+  "slaTarget": 93,
+  "sla": [
+   95.2,
+   95.8,
+   96.0,
+   95.5,
+   96.1,
+   95.9
+  ],
+  "costIndex": 96,
+  "safety": 4,
+  "responsiveness": 5,
+  "incidentsYtd": 3
+ },
+ {
+  "id": "F06",
+  "name": "Transportadora R2",
+  "type": "Transporte rodoviário",
+  "terminals": [
+   "GRU",
+   "MAO"
+  ],
+  "annualValue": 12000000,
+  "contractEnd": "2026-12-15",
+  "slaTarget": 92,
+  "sla": [
+   89.5,
+   90.1,
+   88.9,
+   90.4,
+   89.7,
+   90.2
+  ],
+  "costIndex": 112,
+  "safety": 3,
+  "responsiveness": 3,
+  "incidentsYtd": 6
+ },
+ {
+  "id": "F07",
+  "name": "Transportadora R3 (EUA)",
+  "type": "Transporte rodoviário",
+  "terminals": [
+   "MIA"
+  ],
+  "annualValue": 6800000,
+  "contractEnd": "2027-09-30",
+  "slaTarget": 94,
+  "sla": [
+   95.0,
+   95.4,
+   94.8,
+   95.6,
+   95.1,
+   95.3
+  ],
+  "costIndex": 101,
+  "safety": 4,
+  "responsiveness": 4,
+  "incidentsYtd": 1
+ },
+ {
+  "id": "F08",
+  "name": "Transportadora R4 (Andina)",
+  "type": "Transporte rodoviário",
+  "terminals": [
+   "SCL",
+   "LIM",
+   "BOG"
+  ],
+  "annualValue": 8400000,
+  "contractEnd": "2027-04-30",
+  "slaTarget": 92,
+  "sla": [
+   91.0,
+   92.4,
+   90.8,
+   91.7,
+   92.1,
+   91.3
+  ],
+  "costIndex": 106,
+  "safety": 3,
+  "responsiveness": 4,
+  "incidentsYtd": 3
+ },
+ {
+  "id": "F09",
+  "name": "Integrador de TI T1",
+  "type": "Tecnologia",
+  "terminals": [
+   "GRU",
+   "VCP",
+   "MAO",
+   "MIA",
+   "SCL",
+   "LIM",
+   "BOG"
+  ],
+  "annualValue": 7500000,
+  "contractEnd": "2027-05-31",
+  "slaTarget": 98,
+  "sla": [
+   98.9,
+   99.1,
+   98.8,
+   99.0,
+   98.7,
+   99.2
+  ],
+  "costIndex": 100,
+  "safety": 4,
+  "responsiveness": 4,
+  "incidentsYtd": 1
+ },
+ {
+  "id": "F10",
+  "name": "Manutenção M1",
+  "type": "Manutenção de equipamentos",
+  "terminals": [
+   "GRU",
+   "VCP"
+  ],
+  "annualValue": 6200000,
+  "contractEnd": "2027-03-31",
+  "slaTarget": 93,
+  "sla": [
+   93.4,
+   92.8,
+   93.9,
+   93.1,
+   92.6,
+   93.5
+  ],
+  "costIndex": 99,
+  "safety": 4,
+  "responsiveness": 3,
+  "incidentsYtd": 2
+ }
+]

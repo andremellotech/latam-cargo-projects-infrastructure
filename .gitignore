@@ -1,0 +1,4 @@
+node_modules/
+data/internal/*
+!data/internal/README.md
+*.log

@@ -1,6 +1,12 @@
 {
-  "synthetic": true,
-  "label": "DADOS FICTÍCIOS DE DEMONSTRAÇÃO",
-  "asOf": "2026-10-29",
-  "currency": "BRL"
+ "synthetic": true,
+ "label": "DADOS FICTÍCIOS DE DEMONSTRAÇÃO",
+ "asOf": "2026-10-29",
+ "currency": "BRL",
+ "timeline": {
+  "start": "2026-01",
+  "months": 18,
+  "asOfIdx": 9
+ },
+ "note": "Todos os valores de ocupação, custos, projetos, CAPEX, riscos, fornecedores e pipeline são sintéticos e não representam a LATAM Cargo."
 }

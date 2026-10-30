@@ -1,0 +1,260 @@
+[
+  {
+    "code": "GRU",
+    "name": "São Paulo/Guarulhos",
+    "country": "Brasil",
+    "lat": -23.4356,
+    "lon": -46.4731,
+    "role": "Principal hub logístico da LATAM Cargo no Brasil",
+    "layers": [
+      "ecommerce",
+      "domestic",
+      "intl"
+    ],
+    "primaryLayer": "ecommerce",
+    "components": {
+      "demand": 95,
+      "network": 95,
+      "infrastructure": 92,
+      "connectivity": 95,
+      "special": 80
+    },
+    "confidence": "Alta",
+    "evidence": [
+      "TECA ampliado e em operação desde 15/04/2026: +47% na área total dedicada ao e-commerce",
+      "Triagem automatizada de até 72 mil pacotes/dia e +2,9 mil m² (2025)",
+      "Hub de origem do corredor GRU–Manaus (12 cargueiros/semana)",
+      "Um dos 4 principais hubs do grupo"
+    ],
+    "sources": [
+      "S3",
+      "S3b",
+      "S6"
+    ],
+    "focus": [
+      "Capacidade e fluxo do TECA para e-commerce",
+      "Docas, pátios e sincronização com a malha rodoviária",
+      "Automação, rastreabilidade e indicadores de produtividade"
+    ],
+    "rationale": "Maior materialidade doméstica e expansão pública recente; priorizar leitura de ocupação, picos e gargalos após a ampliação."
+  },
+  {
+    "code": "MAO",
+    "name": "Manaus",
+    "country": "Brasil",
+    "lat": -3.0386,
+    "lon": -60.0497,
+    "role": "Corredor cargueiro doméstico prioritário",
+    "layers": [
+      "domestic",
+      "ecommerce"
+    ],
+    "primaryLayer": "domestic",
+    "components": {
+      "demand": 92,
+      "network": 82,
+      "infrastructure": 72,
+      "connectivity": 88,
+      "special": 65
+    },
+    "confidence": "Alta",
+    "evidence": [
+      "GRU–MAO passou de 10 para 12 voos cargueiros/semana (~+110 t/semana)",
+      "Região com 18 frequências semanais considerando GRU e VCP; novos voos nas quartas e sextas (maior demanda)",
+      "LATAM Cargo detém 45% do mercado de carga aérea de Manaus (ANAC, jan/2026)",
+      "Mais de 41,3 mil t movimentadas no Amazonas em 2025 (ANAC)",
+      "Mix: eletrônicos, peças, farmacêuticos, perecíveis e e-commerce (Zona Franca)"
+    ],
+    "sources": [
+      "S3",
+      "S3b",
+      "S7"
+    ],
+    "focus": [
+      "Capacidade e regularidade do terminal no corredor",
+      "Integração com transporte terrestre/fluvial de parceiros",
+      "Plano de contingência para picos"
+    ],
+    "rationale": "Participação de mercado e volume anual são evidências diretas de demanda; condição física do terminal continua desconhecida."
+  },
+  {
+    "code": "VCP",
+    "name": "Campinas/Viracopos",
+    "country": "Brasil",
+    "lat": -23.0074,
+    "lon": -47.1345,
+    "role": "Origem complementar ao corredor Manaus e conexão internacional",
+    "layers": [
+      "domestic",
+      "intl"
+    ],
+    "primaryLayer": "domestic",
+    "components": {
+      "demand": 78,
+      "network": 78,
+      "infrastructure": 80,
+      "connectivity": 85,
+      "special": 60
+    },
+    "confidence": "Média",
+    "evidence": [
+      "Integra as 18 frequências semanais da região de Manaus junto a Guarulhos",
+      "Rota cargueira Viracopos–Manaus confirmada (S7)",
+      "Rota recente Viracopos–Recife–Bruxelas"
+    ],
+    "sources": [
+      "S3",
+      "S3b",
+      "S7"
+    ],
+    "focus": [
+      "Balanceamento de carga entre GRU e VCP",
+      "Contingência e redundância da malha do Sudeste"
+    ],
+    "rationale": "Papel complementar; sem dados públicos de capacidade do terminal.",
+    "pinOffset": [
+      -58,
+      -22
+    ],
+    "labelSide": "left"
+  },
+  {
+    "code": "MIA",
+    "name": "Miami",
+    "country": "Estados Unidos",
+    "lat": 25.7959,
+    "lon": -80.287,
+    "role": "Hub internacional de cargas da LATAM Cargo",
+    "layers": [
+      "intl"
+    ],
+    "primaryLayer": "intl",
+    "components": {
+      "demand": 92,
+      "network": 100,
+      "infrastructure": 100,
+      "connectivity": 100,
+      "special": 95
+    },
+    "confidence": "Alta",
+    "evidence": [
+      "Instalação de ~33.000 m², uma das maiores do aeroporto de Miami",
+      "Certificações IATA CEIV Pharma e CEIV Lithium Battery",
+      "Rotas recentes Miami–São José dos Campos e Miami–Brasília"
+    ],
+    "sources": [
+      "S1",
+      "S3"
+    ],
+    "focus": [
+      "Capacidade e fluxos de cargas especiais (Pharma)",
+      "Resiliência e continuidade operacional do hub",
+      "Integração com rotas para o Brasil"
+    ],
+    "rationale": "Maior porte público de instalação e papel de gateway entre América Latina e outros mercados."
+  },
+  {
+    "code": "SCL",
+    "name": "Santiago",
+    "country": "Chile",
+    "lat": -33.393,
+    "lon": -70.7858,
+    "role": "Hub sul-americano e corredor de perecíveis",
+    "layers": [
+      "fresh",
+      "intl"
+    ],
+    "primaryLayer": "fresh",
+    "components": {
+      "demand": 90,
+      "network": 92,
+      "infrastructure": 85,
+      "connectivity": 90,
+      "special": 100
+    },
+    "confidence": "Alta",
+    "evidence": [
+      "~7.546 t de cerejas em 2023 (+32%); LATAM transporta ~30% do volume aéreo",
+      "19 frequências semanais dedicadas na temporada; frota de 20 aeronaves",
+      "Santiago–China em ~45 horas",
+      "Um dos 4 principais hubs do grupo"
+    ],
+    "sources": [
+      "S4",
+      "S5",
+      "S6"
+    ],
+    "focus": [
+      "Capacidade de pico sazonal e cadeia fria",
+      "Tempo de permanência e fluxo de perecíveis",
+      "Planejamento de safra (cerejas)"
+    ],
+    "rationale": "Demanda sazonal pública e intensa; exige dimensionamento para pico, não para média."
+  },
+  {
+    "code": "LIM",
+    "name": "Lima",
+    "country": "Peru",
+    "lat": -12.0219,
+    "lon": -77.1143,
+    "role": "Hub regional do grupo",
+    "layers": [
+      "regional"
+    ],
+    "primaryLayer": "regional",
+    "components": {
+      "demand": 68,
+      "network": 83,
+      "infrastructure": 72,
+      "connectivity": 85,
+      "special": 70
+    },
+    "confidence": "Baixa",
+    "evidence": [
+      "Um dos 4 principais hubs do grupo (fonte voltada a passageiros)"
+    ],
+    "sources": [
+      "S6"
+    ],
+    "focus": [
+      "Diagnóstico inicial de capacidade e conexões regionais"
+    ],
+    "rationale": "Sem evidência pública granular de carga; score preliminar para ordenar a agenda de diagnóstico."
+  },
+  {
+    "code": "BOG",
+    "name": "Bogotá",
+    "country": "Colômbia",
+    "lat": 4.7016,
+    "lon": -74.1469,
+    "role": "Hub regional e mercado de flores",
+    "layers": [
+      "regional",
+      "fresh"
+    ],
+    "primaryLayer": "regional",
+    "components": {
+      "demand": 76,
+      "network": 85,
+      "infrastructure": 75,
+      "connectivity": 86,
+      "special": 82
+    },
+    "confidence": "Média",
+    "evidence": [
+      "Um dos 4 principais hubs do grupo",
+      "Operação de flores a partir de Medellín e Bogotá: de 12 voos em 2019 para 35 em 2023 (S8, dado histórico)",
+      "Capacidade adicional para a temporada de flores de Colômbia e Equador (S5)"
+    ],
+    "sources": [
+      "S5",
+      "S6",
+      "S8"
+    ],
+    "focus": [
+      "Sazonalidade de flores e cadeia fria",
+      "Integração com parceiros locais"
+    ],
+    "rationale": "Sazonalidade de flores com crescimento público (2019–2023); volume por terminal e situação atual não divulgados. Score ainda preliminar."
+  }
+]

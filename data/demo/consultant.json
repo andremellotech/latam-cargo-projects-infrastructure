@@ -1,31 +1,114 @@
 {
-  "decisions": [
-    {
-      "id": "D1",
-      "title": "Aprovar capacidade temporária de frio para a safra em Santiago",
-      "owner": "Diretoria de Operações",
-      "due": "2026-11-05",
-      "link": "P07",
-      "recommendation": "Aprovar câmaras móveis até a conclusão do P07 e antecipar o comissionamento por módulos.",
-      "why": "A conclusão prevista do P07 ocorre depois do início da safra."
-    },
-    {
-      "id": "D2",
-      "title": "Rebaselinar a expansão de armazenagem de Manaus",
-      "owner": "Comitê de Investimentos",
-      "due": "2026-11-12",
-      "link": "P04",
-      "recommendation": "Aprovar nova linha de base condicionada a plano de recuperação, revisão de escopo e gatilhos de parada.",
-      "why": "O projeto está fora de prazo e de custo, e o corredor segue com ocupação crescente."
-    },
-    {
-      "id": "D4",
-      "title": "Priorizar os business cases da próxima janela de CAPEX",
-      "owner": "Comitê de Investimentos",
-      "due": "2026-12-10",
-      "link": "BC1",
-      "recommendation": "Priorizar BC1, BC2, BC3 e BC6; reavaliar BC4; não aprovar BC5 nas premissas atuais.",
-      "why": "BC4 tem retorno marginal e BC5 tem VPL negativo nas premissas informadas."
-    }
-  ]
+ "decisions": [
+  {
+   "id": "D1",
+   "title": "Aprovar capacidade temporária de frio para a safra em Santiago",
+   "owner": "Diretoria de Operações",
+   "due": "2026-11-05",
+   "link": "P07",
+   "recommendation": "Aprovar câmaras móveis até a conclusão do P07 e antecipar o comissionamento por módulos.",
+   "why": "A conclusão prevista do P07 ocorre depois do início da safra."
+  },
+  {
+   "id": "D2",
+   "title": "Rebaselinar a expansão de armazenagem de Manaus",
+   "owner": "Comitê de Investimentos",
+   "due": "2026-11-12",
+   "link": "P04",
+   "recommendation": "Aprovar nova linha de base condicionada a plano de recuperação, revisão de escopo e gatilhos de parada.",
+   "why": "O projeto está fora de prazo e de custo, e o corredor segue com ocupação crescente."
+  },
+  {
+   "id": "D3",
+   "title": "Definir a estratégia do contrato do Provedor GH-A",
+   "owner": "Compras e Contratos",
+   "due": "2026-11-30",
+   "link": "F01",
+   "recommendation": "Renegociar SLA com bônus e penalidade e abrir cotação paralela antes do vencimento.",
+   "why": "O contrato vence em poucos meses e o SLA está abaixo da meta."
+  },
+  {
+   "id": "D4",
+   "title": "Priorizar os business cases da próxima janela de CAPEX",
+   "owner": "Comitê de Investimentos",
+   "due": "2026-12-10",
+   "link": "BC1",
+   "recommendation": "Priorizar BC1, BC2, BC3 e BC6; reavaliar BC4; não aprovar BC5 nas premissas atuais.",
+   "why": "BC4 tem retorno marginal e BC5 tem VPL negativo nas premissas informadas."
+  }
+ ],
+ "actions": [
+  {
+   "id": "A1",
+   "horizon": 30,
+   "title": "Instalar câmaras móveis e plano de contingência para a safra de SCL",
+   "owner": "Gerência de Projetos SCL",
+   "link": "P07",
+   "status": "Em andamento"
+  },
+  {
+   "id": "A2",
+   "horizon": 30,
+   "title": "Elaborar plano de recuperação e nova linha de base do P04 (MAO)",
+   "owner": "Gerência de Projetos Norte",
+   "link": "P04",
+   "status": "Em andamento"
+  },
+  {
+   "id": "A3",
+   "horizon": 30,
+   "title": "Medir ocupação por turno no TECA GRU para o pico de e-commerce",
+   "owner": "Gerência do terminal GRU",
+   "link": "R01",
+   "status": "Não iniciado"
+  },
+  {
+   "id": "A4",
+   "horizon": 60,
+   "title": "Abrir cotação paralela de ground handling em GRU/VCP",
+   "owner": "Compras e Contratos",
+   "link": "F01",
+   "status": "Não iniciado"
+  },
+  {
+   "id": "A5",
+   "horizon": 60,
+   "title": "Fechar premissas e validar demanda dos casos BC4 e BC5",
+   "owner": "Consultoria de Projetos",
+   "link": "BC4",
+   "status": "Não iniciado"
+  },
+  {
+   "id": "A6",
+   "horizon": 60,
+   "title": "Reforçar obra e acordo de câmara temporária em Bogotá",
+   "owner": "Gerência de Projetos BOG",
+   "link": "P10",
+   "status": "Não iniciado"
+  },
+  {
+   "id": "A7",
+   "horizon": 90,
+   "title": "Consolidar o painel de KPIs com dados internos de todos os terminais",
+   "owner": "Gerência de Sistemas",
+   "link": "P11",
+   "status": "Não iniciado"
+  },
+  {
+   "id": "A8",
+   "horizon": 90,
+   "title": "Revisar o plano diretor de capacidade da rede com base no score",
+   "owner": "Consultoria de Projetos",
+   "link": "network",
+   "status": "Não iniciado"
+  },
+  {
+   "id": "A9",
+   "horizon": 90,
+   "title": "Avançar a oportunidade de cadeia fria para farmacêuticos para decisão",
+   "owner": "Novos Negócios",
+   "link": "O2",
+   "status": "Não iniciado"
+  }
+ ]
 }

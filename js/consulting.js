@@ -158,15 +158,20 @@
     return { asOf, synthetic: true, portfolio: pf, cases, kpis, decisions, plan, method, criteria };
   }
 
-  function render(data) {
+  function render(data, options) {
     const model = build(data), esc = C.esc;
+    const actions = { D1: ['projects', 'proj', 'P07', 'Abrir projeto P07'], D2: ['projects', 'proj', 'P04', 'Abrir projeto P04'], D4: ['business', 'caseId', 'BC5', 'Abrir business case BC5'] };
+    const action = (id) => {
+      const target = options && options.actions && actions[id];
+      return target ? '<button type="button" class="linkish decision-action" data-goto="' + esc(target[0]) + '" data-set="' + esc(target[1]) + '" data-val="' + esc(target[2]) + '" data-resetscope="all">' + esc(target[3]) + ' →</button>' : '';
+    };
     const kpis = '<section class="kpis" aria-label="Indicadores do portfólio">' + model.kpis.map((kpi) =>
       '<article class="kpi"><p class="kpi-label">' + esc(kpi.label) + '</p><strong class="kpi-value">' + esc(kpi.value) + '</strong><p class="kpi-note">' + esc(kpi.note) + '</p></article>').join('') + '</section>';
     const decisions = '<section class="decisions-section" aria-labelledby="decisions-title"><h2 id="decisions-title">Decisões prioritárias</h2><div class="decisions">' + model.decisions.map((decision) =>
       '<article class="decision"><p class="decision-type">' + esc(decision.type) + '</p><h3>' + esc(decision.title) + '</h3><p class="evidence">' + esc(decision.evidence) + '</p>' +
       '<p class="recommendation">' + esc(decision.recommendation) + '</p><div class="decision-meta"><span>' + esc(decision.owner) + '</span><span>Decidir até <time datetime="' + esc(decision.due) + '">' + esc(C.fmtDate(decision.due)) + '</time></span></div>' +
-      '<details class="decision-details"><summary>Fundamento</summary><ul>' + decision.details.map((detail) => '<li>' + esc(detail) + '</li>').join('') + '</ul></details></article>').join('') + '</div></section>';
-    const plan = '<section class="plan-section" aria-labelledby="plan-title"><h2 id="plan-title">Plano proposto</h2><div class="plan-grid">' + model.plan.map((item) =>
+      '<details class="decision-details"><summary>Fundamento</summary><ul>' + decision.details.map((detail) => '<li>' + esc(detail) + '</li>').join('') + '</ul></details>' + action(decision.id) + '</article>').join('') + '</div></section>';
+    const plan = '<section id="actionPlan" class="plan-section" aria-labelledby="plan-title"><h2 id="plan-title">Plano proposto</h2><div class="plan-grid">' + model.plan.map((item) =>
       '<article class="plan-item"><h3><span>' + item.days + ' dias</span> ' + esc(item.title) + '</h3><p>' + esc(item.text) + '</p></article>').join('') + '</div></section>';
     return kpis + decisions + plan + '<p class="method"><strong>Método</strong> ' + esc(model.method) + '</p>' +
       '<details class="method-details"><summary>Premissas e critérios</summary>' + model.criteria.map((criterion) => '<p>' + esc(criterion) + '</p>').join('') + '</details>';

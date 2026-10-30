@@ -1,0 +1,88 @@
+[
+  {
+    "id": "I1",
+    "name": "Ampliação do TECA de Guarulhos (e-commerce)",
+    "location": "GRU",
+    "type": "Expansão de terminal",
+    "status": "Em operação",
+    "date": "2026-04-15",
+    "summary": "+47% na área total dedicada ao e-commerce, considerando também a expansão de 2025.",
+    "sources": [
+      "S3"
+    ]
+  },
+  {
+    "id": "I2",
+    "name": "Sistema automatizado de triagem no TECA de Guarulhos",
+    "location": "GRU",
+    "type": "Automação",
+    "status": "Implantado",
+    "date": "2025",
+    "summary": "Capacidade de até 72 mil pacotes por dia.",
+    "sources": [
+      "S3"
+    ]
+  },
+  {
+    "id": "I3",
+    "name": "Expansão de 2,9 mil m² no TECA de Guarulhos",
+    "location": "GRU",
+    "type": "Expansão de terminal",
+    "status": "Implantado",
+    "date": "2025",
+    "summary": "Ampliação física da área do terminal.",
+    "sources": [
+      "S3"
+    ]
+  },
+  {
+    "id": "I4",
+    "name": "Reforço do corredor GRU–Manaus",
+    "location": "MAO",
+    "type": "Malha aérea",
+    "status": "Em operação",
+    "date": "2026",
+    "summary": "De 10 para 12 cargueiros/semana (~+110 t/semana); 18 frequências na região com VCP.",
+    "sources": [
+      "S3"
+    ]
+  },
+  {
+    "id": "I5",
+    "name": "Novas rotas internacionais com o Brasil",
+    "location": "MIA",
+    "type": "Malha aérea",
+    "status": "Inauguradas (recentes)",
+    "date": "n/d",
+    "summary": "Miami–São José dos Campos, Miami–Brasília, Amsterdã–Curitiba, Viracopos–Recife–Bruxelas.",
+    "sources": [
+      "S3"
+    ]
+  },
+  {
+    "id": "I6",
+    "name": "Operação sazonal de cerejas (safra 2023/24)",
+    "location": "SCL",
+    "type": "Operação sazonal",
+    "status": "Concluída",
+    "date": "2023-24",
+    "summary": "19 frequências semanais dedicadas, frota de 20 aeronaves e capacidade ofertada +16%.",
+    "sources": [
+      "S4"
+    ]
+  },
+  {
+    "id": "I7",
+    "name": "Plano de frota cargueira (19 Boeing 767)",
+    "location": "Rede",
+    "type": "Frota",
+    "status": "Concluído",
+    "date": "2023-11",
+    "summary": "19 cargueiros no About Us atual; capacidade de cargueiros +70% vs 2019 (S5). O comunicado de ago/2024 cita 21 (S9): confirmar a frota vigente.",
+    "sources": [
+      "S5",
+      "S1",
+      "S9"
+    ]
+  }
+]
