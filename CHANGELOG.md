@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.4.0 — 2026-10-29
+**Painel executivo e preparação para entrevista**
+- Layout coeso em azul-marinho, branco e magenta, com hierarquia, tabelas e gráficos ajustados para desktop e celular.
+- Pauta inicial do comitê: primeira decisão por prazo, responsável, recomendação e evidência; respeita o recorte de país.
+- Modo entrevista em cinco etapas: contexto, P07, riscos, BC3 e governança. Saída restaura filtros, seleções e modo anterior sem substituir a preferência salva.
+- Modelo de atuação consultiva em Governança: fluxo de investimentos, levantamento de maturidade e entregas de workshop, identificados como proposta para discussão.
+- Roteiro de cinco minutos, plano 30/60/90, novas capturas e referências públicas CodeXR/Topmate.
+- Testes de pauta, transições e integração; cenário sem demonstração. Dados fictícios e cálculos financeiros preservados.
+
 ## 2.3.0 — 2026-10-29
 **Visual em vidro, busca global e painel de prazos** (`docs/09-design-vidro.md`)
 - **Tema de vidro fosco** (claro e escuro) com degradê, superfícies translúcidas, cantos maiores e micro-interações; sem imagens de fundo nem dependências.

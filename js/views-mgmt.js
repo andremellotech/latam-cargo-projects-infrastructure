@@ -35,6 +35,17 @@
     const rec = (mg.cases || []).map((c) => A.evalCase(c)).filter((e, i) => e.verdict.key === 'yes' && inV((mg.projects.find((p) => p.id === mg.cases[i].projectId) || { terminal: 'REDE' }).terminal));
     const over = pf.eac - pf.budget, overRag = over <= 0 ? 'g' : pf.vacPct <= 0.05 ? 'a' : 'r';
     const idx = (v) => (v == null ? '–' : C.fmtDec(v, 2)), idxRag = (v) => (v == null ? 'n' : v >= 0.95 ? 'g' : v >= 0.85 ? 'a' : 'r');
+    const decisions = (mg.consultant.decisions || []).filter((decision) => {
+      const business = mg.cases.find((c) => c.id === decision.link);
+      const project = mg.projects.find((p) => p.id === (business ? business.projectId : decision.link));
+      if (project) return inV(project.terminal);
+      const supplier = mg.suppliers.find((s) => s.id === decision.link);
+      if (supplier) return supplier.terminals.some(inV);
+      const risk = mg.risks.find((r) => r.id === decision.link);
+      return risk ? inV(risk.terminal) : state.country === 'all';
+    }).sort((a, b) => a.due.localeCompare(b.due) || a.id.localeCompare(b.id));
+    const first = decisions[0];
+    const focus = first ? '<section class="decision-focus" aria-labelledby="decisionTitle"><div class="focus-main"><p class="eyebrow">PAUTA DO COMITÊ <span> / ' + esc(first.id) + ' · prioridade por prazo</span></p><h2 id="decisionTitle">' + esc(first.title) + '</h2><p class="focus-recommendation">' + esc(first.recommendation) + '</p><p class="focus-evidence"><b>Evidência:</b> ' + esc(first.why) + '</p></div><div class="focus-action">' + dueChip(C.daysBetween(asOf, first.due)) + '<p><b>' + esc(first.owner) + '</b><span>Decidir até ' + esc(C.fmtDate(first.due)) + '</span></p>' + H.go(H.refView(first.link), linkRef(first.link), 'Analisar ' + esc(first.link)) + '</div></section>' : '';
     const cards = '<div class="grid cards">' +
       H.stat('Orçamento do portfólio', C.fmtMi(pf.budget), pf.n + ' projetos no recorte', '', 'layers') +
       H.stat('CAPEX realizado', C.fmtMi(pf.actual), C.fmtDec(pf.budget ? (pf.actual / pf.budget) * 100 : 0, 0) + '% do orçamento', '', 'money') +
@@ -45,7 +56,7 @@
       H.stat('Riscos críticos', String(crit), 'pontuação ≥ 15 (de 25)', '', 'alert') +
       H.stat('VPL dos casos recomendados', C.fmtMi(rec.reduce((a, e) => a + e.npv, 0)), rec.length + ' caso(s) com aprovação recomendada', '', 'check') + '</div>';
     const insHtml = ins.length ? '<ul class="ins-list">' + ins.map((i) => '<li class="ins ' + i.sev + '"><span class="sevdot" title="' + sevLabel[i.sev] + '"></span><div><b>' + esc(i.title) + '</b><p>' + esc(i.detail) + '</p><p class="reco"><b>Recomendação:</b> ' + esc(i.reco) + '</p></div>' + H.go(i.goto, i.ref) + '</li>').join('') + '</ul>' : H.empty('Nenhum alerta para os filtros selecionados.');
-    const decs = (mg.consultant.decisions || []).map((x) => { const days = C.daysBetween(asOf, x.due); return '<li class="dec"><div class="dec-h"><b>' + esc(x.id + ' · ' + x.title) + '</b>' + dueChip(days) + '</div><p class="muted small">Responsável: ' + esc(x.owner) + ' · prazo ' + esc(C.fmtDate(x.due)) + '</p><p><b>Recomendação:</b> ' + esc(x.recommendation) + '</p><p class="muted small">Por quê: ' + esc(x.why) + '</p>' + H.go(H.refView(x.link), linkRef(x.link)) + '</li>'; }).join('');
+    const decs = decisions.map((x) => { const days = C.daysBetween(asOf, x.due); return '<li class="dec"><div class="dec-h"><b>' + esc(x.id + ' · ' + x.title) + '</b>' + dueChip(days) + '</div><p class="muted small">Responsável: ' + esc(x.owner) + ' · prazo ' + esc(C.fmtDate(x.due)) + '</p><p><b>Recomendação:</b> ' + esc(x.recommendation) + '</p><p class="muted small">Por quê: ' + esc(x.why) + '</p>' + H.go(H.refView(x.link), linkRef(x.link)) + '</li>'; }).join('');
     const hz = [30, 60, 90].map((h) => '<div class="hz"><h3>Próximos ' + h + ' dias</h3><ul class="act-list">' + (mg.consultant.actions || []).filter((a) => a.horizon === h).map((a) => '<li><span class="chip ' + (a.status === 'Em andamento' ? 'st-g' : 'st-n') + '"><i></i>' + esc(a.status) + '</span><b>' + esc(a.title) + '</b><small class="muted">' + esc(a.owner) + '</small>' + H.go(H.refView(a.link), linkRef(a.link), 'Ver') + '</li>').join('') + '</ul></div>').join('');
     const pff = A.portfolioFinance(mg, vis, asOf), lastI = mg.series.months.length - 1;
     const okN = pf.counts.g, runN = pf.counts.g + pf.counts.a + pf.counts.r;
@@ -68,10 +79,10 @@
     const quick = [['network', 'pin', 'Mapa'], ['projects', 'folder', 'Projetos'], ['kpis', 'bars', 'KPIs'], ['business', 'calc', 'Casos']].map((q) => '<button type="button" class="qa" data-goto="' + q[0] + '">' + H.icon(q[1]) + '<span>' + q[2] + '</span></button>').join('');
     const rail = '<aside class="cons-rail" aria-label="Atalhos e próximos prazos"><section class="panel"><div class="who"><span class="avatar" aria-hidden="true">PI</span><div><b>Painel do consultor</b><small>Posição em ' + esc(C.fmtDate(asOf)) + '</small></div></div><div class="quick">' + quick + '</div></section>' +
       '<section class="panel"><h2>' + H.icon('calendar') + ' Próximos prazos' + demoTag(state) + '</h2>' + dl + '</section></aside>';
-    return '<div class="cons"><div class="cons-main"><div class="callout lead">Posição em <b>' + esc(C.fmtDate(asOf)) + '</b>' + demoTag(state) + '. As mensagens abaixo são calculadas pelas regras do repositório a partir dos dados; a recomendação é o ponto de partida da discussão, não uma decisão.</div>' + cards +
+    return focus + '<div class="cons"><div class="cons-main"><div class="callout lead">' + H.icon('calendar') + ' Posição em <b>' + esc(C.fmtDate(asOf)) + '</b>' + demoTag(state) + '<span class="snapshot-note">Recomendações para discussão e validação do comitê.</span></div>' + cards +
       '<div class="grid two eq">' + rings + bars + '</div>' + (mg.series.defs.some((x) => x.tier === 1) ? kpiBoard(state, mg, vis) : '') +
-      '<div class="grid two"><section class="panel"><h2>O que importa agora</h2>' + insHtml + '</section><section class="panel"><h2>Decisões necessárias</h2><ul class="dec-list">' + decs + '</ul></section></div>' +
-      '<section class="panel"><h2>Plano de 30, 60 e 90 dias</h2><div class="grid three">' + hz + '</div></section></div>' + rail + '</div>';
+      '<div class="grid two"><section class="panel"><h2>O que importa agora</h2>' + insHtml + '</section><section class="panel"><h2>Decisões necessárias</h2>' + (decs ? '<ul class="dec-list">' + decs + '</ul>' : H.empty('Nenhuma decisão vinculada ao recorte selecionado.')) + '</section></div>' +
+      '<section class="panel" id="actionPlan"><h2>Plano de 30, 60 e 90 dias</h2><div class="grid three">' + hz + '</div></section></div>' + rail + '</div>';
   });
 
   /* ------------------------------------------------------------ Terminais */
