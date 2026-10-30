@@ -1,8 +1,9 @@
-// Teste de integracao do app.js com um DOM simulado: navegacao, modos, filtros, selecao, simulador, tema e TV.
+// Teste de integracao do app.js com um DOM simulado: navegacao, entrevista reversivel, modos, filtros, selecao, simulador, tema e TV.
 const fs = require('fs'), vm = require('vm'), path = require('path');
 process.chdir(path.join(__dirname, '..'));
 const html = fs.readFileSync('index.html', 'utf8');
 const ids = [...html.matchAll(/id="([\w-]+)"/g)].map((m) => m[1]);
+const withoutDemo = process.argv.includes('--without-demo');
 
 function matches(attrs, classes, sel) {
   let m = sel.match(/^\[(data-[\w-]+)\]$/); if (m) return attrs[m[1]] !== undefined;
@@ -14,21 +15,21 @@ function mkEl(id, attrs, classes) {
   attrs = attrs || {}; classes = classes || [];
   const ds = {}; Object.keys(attrs).forEach((k) => { ds[k.slice(5).replace(/-([a-z])/g, (_, c) => c.toUpperCase())] = attrs[k]; });
   return { id, innerHTML: '', textContent: '', value: '', hidden: false, style: {}, dataset: ds, attrs, _l: {}, classList: { toggle() {}, add() {}, remove() {}, contains() { return false; } },
-    setAttribute() {}, removeAttribute() {}, addEventListener(t, f) { (this._l[t] = this._l[t] || []).push(f); }, focus() {}, matches(s) { return matches(attrs, classes, s); },
+    setAttribute(k, v) { attrs[k] = String(v); }, removeAttribute(k) { delete attrs[k]; }, addEventListener(t, f) { (this._l[t] = this._l[t] || []).push(f); }, focus() { doc.activeElement = this; }, matches(s) { return matches(attrs, classes, s); },
     closest(s) { const sels = s.split(','); for (const x of sels) if (matches(attrs, classes, x.trim())) return this; return null; } };
 }
 const els = {}; ids.forEach((i) => { els[i] = mkEl(i); });
 const navs = [...html.matchAll(/data-view="(\w+)"/g)].map((m) => mkEl('nav', { 'data-view': m[1] }, ['nav-item']));
 const bodyCls = new Set(['mode-demo']);
-const body = mkEl('body'); body.classList = { toggle(c, f) { f === undefined ? (bodyCls.has(c) ? bodyCls.delete(c) : bodyCls.add(c)) : f ? bodyCls.add(c) : bodyCls.delete(c); }, add(c) { bodyCls.add(c); }, remove(c) { bodyCls.delete(c); }, contains(c) { return bodyCls.has(c); } };
+const body = mkEl('body'); body.classList = { toggle(c, f) { f === undefined ? (bodyCls.has(c) ? bodyCls.delete(c) : bodyCls.add(c)) : f ? bodyCls.add(c) : bodyCls.delete(c); }, add(...cs) { cs.forEach((c) => bodyCls.add(c)); }, remove(...cs) { cs.forEach((c) => bodyCls.delete(c)); }, contains(c) { return bodyCls.has(c); } };
 let ready; const doc = mkEl('doc');
 Object.assign(doc, { getElementById: (i) => els[i] || null, querySelectorAll: (s) => (s === '.nav-item' ? navs : []), querySelector: () => null, body, title: '' });
 doc.addEventListener = (t, f) => { if (t === 'DOMContentLoaded') ready = f; else (doc._l[t] = doc._l[t] || []).push(f); };
 const storage = {}; const fetched = [];
 const ctx = { document: doc, window: null, history: { replaceState() {} }, location: { hash: '' }, localStorage: { getItem: (k) => (k in storage ? storage[k] : null), setItem: (k, v) => { storage[k] = v; } }, matchMedia: () => ({ matches: false }),
-  fetch: async (p) => { fetched.push(p); try { const t = fs.readFileSync(p, 'utf8'); return { ok: true, json: async () => JSON.parse(t) }; } catch (e) { return { ok: false, status: 404, json: async () => null }; } }, console, Intl, Set, Promise, Object, Number, Math, Array, String, JSON, Date, setTimeout };
+  fetch: async (p) => { fetched.push(p); try { if (withoutDemo && p.startsWith('data/demo/')) throw new Error('demo ausente'); const t = fs.readFileSync(p, 'utf8'); return { ok: true, json: async () => JSON.parse(t) }; } catch (e) { return { ok: false, status: 404, json: async () => null }; } }, console, Intl, Set, Promise, Object, Number, Math, Array, String, JSON, Date, setTimeout };
 ctx.window = ctx; ctx.window.addEventListener = () => {}; ctx.window.scrollTo = () => {}; vm.createContext(ctx);
-for (const f of ['core', 'analytics', 'charts', 'views-common', 'views-public', 'views-mgmt', 'app']) vm.runInContext(fs.readFileSync('js/' + f + '.js', 'utf8'), ctx, { filename: f });
+for (const f of ['core', 'analytics', 'charts', 'views-common', 'views-public', 'views-mgmt', 'interview', 'app']) vm.runInContext(fs.readFileSync('js/' + f + '.js', 'utf8'), ctx, { filename: f });
 
 let fails = 0; const chk = (c, m) => { if (!c) { fails++; console.error('FALHA:', m); } };
 const click = (attrs, classes) => { const t = mkEl('t', attrs, classes); doc._l.click.forEach((fn) => fn({ target: t })); };
@@ -37,6 +38,15 @@ const c = () => els.appContent.innerHTML;
 
 (async () => {
   await ready(); await new Promise((r) => setTimeout(r, 30));
+  if (withoutDemo) {
+    chk(els.interviewStart.hidden && els.interviewStart.disabled, 'entrevista: sem demo a entrada deve ficar oculta e desabilitada');
+    chk(els.interviewStart.attrs['aria-pressed'] === 'false' && els.interviewPanel.hidden, 'entrevista: sem demo o roteiro permanece inativo');
+    chk(els.modeBanner.innerHTML.includes('Modo público'), 'sem demo inicia em modo publico');
+    click({ 'data-interview': 'next' });
+    chk(!bodyCls.has('mode-demo') && els.modeBanner.innerHTML.includes('Modo público'), 'entrevista: controles sem demo nao podem ativar dados ficticios');
+    console.log(fails ? fails + ' falha(s)' : 'OK: entrevista indisponivel sem conjunto demonstrativo.');
+    process.exit(fails ? 1 : 0);
+  }
   chk(fetched.some((p) => p === 'data/demo/meta.json') && fetched.some((p) => p === 'data/internal/meta.json'), 'deveria tentar carregar demo e internal');
   chk(!fetched.some((p) => p.startsWith('data/internal/') && p !== 'data/internal/meta.json'), 'sem internal/meta, nao deve buscar os demais arquivos internos');
   chk(c().includes('O que importa agora'), 'tela inicial deve ser a visao do consultor em modo demonstracao');
@@ -86,6 +96,47 @@ const c = () => els.appContent.innerHTML;
   els.countryFilter._l.change[0]({ target: { value: 'Chile' } }); nav('projects'); chk(c().includes('P07') && !c().includes('P04 ·'), 'filtro por pais deve restringir os projetos');
   els.countryFilter._l.change[0]({ target: { value: 'all' } });
 
+  // entrevista: inicia em publico com filtros, navega e restaura a mesma tela sem dados ficticios
+  click({ 'data-set': 'mode', 'data-val': 'public' }); nav('network');
+  els.countryFilter.value = 'Brasil'; els.countryFilter._l.change[0]({ target: els.countryFilter });
+  click({ 'data-layer': 'fresh' });
+  els.appContent._l.input[0]({ target: { dataset: { minscore: '1' }, value: '90' } });
+  els.appContent._l.change[0]({ target: { dataset: { minscore: '1' } } });
+  const priorContent = c(), priorTitle = doc.title;
+  chk(els.interviewStart._l.click && els.interviewStart._l.click.length, 'entrevista: entrada deve iniciar o roteiro');
+  if (els.interviewStart._l.click) {
+    els.interviewStart._l.click[0]();
+    chk(!els.interviewPanel.hidden && els.interviewStart.attrs['aria-pressed'] === 'true', 'entrevista: entrada ativa painel e estado acessivel');
+    chk(els.pageTitle.textContent === 'Visão do consultor' && els.modeBanner.innerHTML.includes('Modo demonstração'), 'entrevista: abre contexto demonstrativo');
+    chk(els.countryFilter.value === 'all' && storage.mode === 'public', 'entrevista: limpa filtro visivel sem persistir modo temporario');
+    chk(els.interviewPanel.innerHTML.includes('dados fictícios') && /id="interviewStep"/.test(els.interviewPanel.innerHTML), 'entrevista: rotulo de dados ficticios e seletor de etapa');
+    chk(doc.title.includes('Entrevista'), 'entrevista: titulo identifica o roteiro');
+    click({ 'data-interview': 'next' });
+    chk(els.pageTitle.textContent === 'Projetos e portfólio' && c().includes('P07 · Câmaras frias'), 'entrevista: etapa de projeto abre P07 apos limpar filtros');
+    click({ 'data-set': 'proj', 'data-val': 'P04' });
+    chk(els.interviewPanel.innerHTML.includes('Exploração livre') && c().includes('P04 · Expansão'), 'entrevista: outro projeto indica exploracao livre');
+    click({ 'data-interview': 'resume' });
+    chk(c().includes('P07 · Câmaras frias') && !els.interviewPanel.innerHTML.includes('Exploração livre'), 'entrevista: retomar reaplica o alvo da etapa');
+    click({ 'data-interview': 'next' }); chk(els.pageTitle.textContent === 'Riscos', 'entrevista: proxima etapa abre riscos');
+    click({ 'data-interview': 'next' }); chk(els.pageTitle.textContent === 'Business cases' && c().includes('BC3 ·'), 'entrevista: etapa financeira abre BC3');
+    click({ 'data-interview': 'previous' }); chk(els.pageTitle.textContent === 'Riscos', 'entrevista: voltar retorna a riscos');
+    els.interviewPanel._l.change[0]({ target: { dataset: { interviewStep: '1' }, value: '4' } });
+    chk(els.pageTitle.textContent === 'Visão do consultor' && els.interviewPanel.innerHTML.includes('Governança e próximos passos'), 'entrevista: seletor acessa diretamente governanca');
+    nav('overview'); chk(els.interviewPanel.innerHTML.includes('Exploração livre'), 'entrevista: menu permanece livre e anuncia desvio');
+    click({ 'data-set': 'mode', 'data-val': 'public' });
+    click({ 'data-set': 'mode', 'data-val': 'demo' });
+    chk(storage.mode === 'public', 'entrevista: trocar modo durante ensaio preserva preferencia anterior');
+    click({ 'data-interview': 'exit' });
+    chk(els.interviewPanel.hidden && els.interviewPanel.innerHTML === '' && els.interviewStart.attrs['aria-pressed'] === 'false', 'entrevista: sair limpa painel e estado acessivel');
+    chk(c() === priorContent && doc.title === priorTitle && els.countryFilter.value === 'Brasil', 'entrevista: restaura tela, titulo, selecao e filtros anteriores');
+    chk(!bodyCls.has('mode-demo') && bodyCls.has('mode-public') && els.modeBanner.innerHTML.includes('Modo público') && storage.mode === 'public', 'entrevista: sair para publico nao vaza modo demonstracao');
+  }
+  els.countryFilter.value = 'all'; els.countryFilter._l.change[0]({ target: els.countryFilter });
+  click({ 'data-reset-layers': '1' });
+  els.appContent._l.input[0]({ target: { dataset: { minscore: '1' }, value: '0' } });
+  els.appContent._l.change[0]({ target: { dataset: { minscore: '1' } } });
+  click({ 'data-set': 'mode', 'data-val': 'demo' });
+
   // ---- busca global, atalho "/" e indicador do menu
   { const sin = els.globalSearch, res = els.searchResults, st = els.searchStatus; let focused = 0; sin.focus = () => { focused++; };
     sin.value = 'P04'; sin._l.input[0](); chk(res.hidden === false && res.innerHTML.includes('role="option"') && res.innerHTML.includes('P04'), 'busca: digitar abre os resultados'); chk(/resultado/.test(st.textContent), 'busca: status anunciado');
@@ -110,6 +161,6 @@ const c = () => els.appContent.innerHTML;
   click({ 'data-goto': 'network' }, []); chk(els.pageTitle.textContent === 'Mapa de atuação', 'consultor: atalho Mapa'); nav('consultant');
   // tema e TV
   els.themeToggle._l.click[0](); chk(storage.theme === 'dark', 'tema persistido'); els.tvMode._l.click[0](); chk(els.tvMode.textContent === 'Sair do modo TV', 'modo TV');
-  console.log(fails ? fails + ' falha(s)' : 'OK: integração do app.js (modos, navegação, mapa, drill-down, projetos, KPIs, casos, simulador, filtros, tema, TV).');
+  console.log(fails ? fails + ' falha(s)' : 'OK: integração do app.js (entrevista reversível, modos, navegação, mapa, drill-down, projetos, KPIs, casos, simulador, filtros, tema, TV).');
   process.exit(fails ? 1 : 0);
 })().catch((e) => { console.error('ERRO', e); process.exit(1); });

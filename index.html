@@ -6,6 +6,7 @@
   <meta name="description" content="Portal analítico de projetos e infraestrutura de terminais de carga: visão do consultor, portfólio, KPIs, business cases, riscos e fornecedores.">
   <title>Consultoria de Projetos e Infraestrutura | LATAM Cargo</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="executive.css">
 </head>
 <body class="mode-demo">
   <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false"><defs>
@@ -34,8 +35,8 @@
   <a class="skip" href="#appContent">Ir para o conteúdo</a>
   <header class="topbar">
     <div class="brand">
-      <div class="brand-mark" aria-hidden="true">PI</div>
-      <div><strong>Projetos &amp; Infraestrutura</strong><span>Cargas · portal analítico independente</span></div>
+      <div class="brand-mark" aria-hidden="true">PI<span></span></div>
+      <div><strong>Projetos &amp; Infraestrutura</strong><span>Portfólio independente · carga aérea</span></div>
     </div>
     <div class="search" role="search">
       <svg class="ic" aria-hidden="true" focusable="false"><use href="#i-search"/></svg>
@@ -46,6 +47,7 @@
     </div>
     <div class="actions">
       <div id="modeSwitch" class="seg" role="group" aria-label="Fonte dos dados"></div>
+      <button id="interviewStart" class="btn interview-start" type="button" aria-pressed="false" aria-controls="interviewPanel">Modo entrevista <span aria-hidden="true">↗</span></button>
       <button id="tvMode" class="btn" type="button" aria-pressed="false">Modo TV</button>
       <button id="themeToggle" class="btn" type="button" aria-pressed="false">Tema</button>
     </div>
@@ -70,11 +72,12 @@
         <p class="nav-sec">Método</p>
         <button class="nav-item" data-view="governance" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-book"/></svg><span>Governança e fontes</span></button>
       </nav>
-      <div class="side-note"><b>Dados públicos</b><span>Fontes oficiais com data de acesso. Atualizado em <span id="dataUpdated">—</span>.</span></div>
+      <div class="side-note"><span class="side-caption">ESTUDO INDEPENDENTE</span><b>Da evidência à decisão.</b><span>Fontes públicas atualizadas em <span id="dataUpdated">—</span>. Gestão simulada para demonstração.</span><a href="docs/07-roteiro-do-consultor.md" target="_blank" rel="noopener noreferrer">Guia de apresentação ↗</a></div>
     </aside>
     <main id="main">
+      <section id="interviewPanel" hidden aria-label="Roteiro de entrevista"></section>
       <section class="hero">
-        <div><p class="eyebrow">LATAM CARGO · PROJETOS E INFRAESTRUTURA</p><h1 id="pageTitle">Visão do consultor</h1><p id="pageSubtitle" class="muted"></p></div>
+        <div><p class="eyebrow">LATAM CARGO <span> / ESTUDO DE PROJETOS E INFRAESTRUTURA</span></p><h1 id="pageTitle">Visão do consultor</h1><p id="pageSubtitle" class="muted"></p></div>
         <label class="filter">País<select id="countryFilter"><option value="all">Todos</option></select></label>
       </section>
       <div id="appContent" tabindex="-1"><p class="muted">Carregando…</p></div>
@@ -87,6 +90,7 @@
   <script src="js/views-common.js"></script>
   <script src="js/views-public.js"></script>
   <script src="js/views-mgmt.js"></script>
+  <script src="js/interview.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

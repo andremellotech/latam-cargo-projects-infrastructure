@@ -4,7 +4,7 @@
   const $ = (id) => document.getElementById(id);
   const V = window.Views, C = window.Core;
   const state = { view: 'consultant', mode: 'demo', kv: 'exec', country: 'all', layers: [], minScore: 0, selected: null, term: null, proj: null, caseId: null, kpi: 'occupancy', metric: 'score', calc: {} };
-  let data = null;
+  let data = null, interview = null;
   const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* ignora */ } } };
   const SET_FILES = ['terminals', 'series', 'projects', 'cases', 'risks', 'suppliers', 'lanes', 'pipeline', 'consultant'];
   const MODE_LABEL = { demo: 'Demonstração', public: 'Públicos', internal: 'Internos' };
@@ -47,10 +47,50 @@
     if (!V.views[state.view]) state.view = 'overview';
     const [t, s] = V.TITLES[state.view];
     $('pageTitle').textContent = t; $('pageSubtitle').textContent = s;
-    document.title = t + ' | ' + data.config.title;
+    document.title = (interview && interview.active ? 'Entrevista · ' + (interview.index + 1) + '/' + window.Interview.steps.length + ' · ' : '') + t + ' | ' + data.config.title;
     document.querySelectorAll('.nav-item').forEach((b) => { const on = b.dataset.view === state.view; b.classList.toggle('active', on); if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
     $('appContent').innerHTML = V.views[state.view](state, data);
+    $('countryFilter').value = state.country;
+    renderInterview();
     moveInd();
+  }
+
+  function renderInterview() {
+    const button = $('interviewStart'), panel = $('interviewPanel');
+    if (!button || !panel) return;
+    const enabled = !!(interview && interview.available), active = !!(interview && interview.active);
+    button.hidden = !enabled; button.disabled = !enabled;
+    button.setAttribute('aria-pressed', String(active));
+    button.textContent = active ? 'Sair da entrevista' : 'Modo entrevista';
+    panel.hidden = !active;
+    if (!active) { panel.innerHTML = ''; return; }
+    const steps = window.Interview.steps, step = interview.step, esc = C.esc, aligned = interview.aligned();
+    panel.innerHTML = '<div class="interview-head"><div><p class="interview-kicker">Modo entrevista · etapa ' + (interview.index + 1) + ' de ' + steps.length + '</p><h2 id="interviewHeading" tabindex="-1">' + esc(step.label) + '</h2></div>' +
+      '<label class="interview-select" for="interviewStep">Ir para etapa<select id="interviewStep" data-interview-step="1">' + steps.map((s, i) => '<option value="' + i + '"' + (i === interview.index ? ' selected' : '') + '>' + (i + 1) + '. ' + esc(s.label) + '</option>').join('') + '</select></label></div>' +
+      '<p class="interview-note">Roteiro de 5 minutos · estudo independente com <b>dados fictícios</b>.</p>' +
+      '<p class="interview-context">' + esc(step.context) + '</p><div class="interview-prompt"><b>Sugestão de fala</b><p>' + esc(step.prompt) + '</p></div>' +
+      '<p class="interview-status" role="status">' + (aligned ? 'Etapa em exibição: ' + esc(step.label) + '.' : 'Exploração livre: você está em ' + esc(V.TITLES[state.view][0]) + ', com seleção ou filtros diferentes desta etapa.') + '</p>' +
+      '<div class="interview-controls"><button type="button" class="btn" data-interview="previous"' + (interview.index === 0 ? ' disabled' : '') + '>Voltar</button><button type="button" class="btn primary" data-interview="next"' + (interview.index === steps.length - 1 ? ' disabled' : '') + '>Avançar</button>' +
+      (!aligned ? '<button type="button" class="btn interview-resume" data-interview="resume">Retomar etapa</button>' : '') +
+      (step.anchor && aligned ? '<button type="button" class="btn" data-interview="plan">Ver plano de execução</button>' : '') +
+      '<button type="button" class="btn" data-interview="exit">Sair</button></div>';
+  }
+
+  function updateInterview(change) {
+    if (!interview || !change()) return;
+    closeSearch(true); applyMode(); go(state.view);
+    refocus(interview.active ? '#interviewHeading' : '#interviewStart');
+  }
+
+  function interviewAction(action) {
+    if (!interview || !interview.active) return;
+    if (action === 'plan') {
+      const plan = interview.step.anchor && $(interview.step.anchor);
+      if (plan) { plan.setAttribute('tabindex', '-1'); plan.focus(); if (plan.scrollIntoView) plan.scrollIntoView({ block: 'start', behavior: 'auto' }); }
+      return;
+    }
+    const changes = { next: () => interview.next(), previous: () => interview.previous(), resume: () => interview.select(interview.index), exit: () => interview.stop() };
+    if (changes[action]) updateInterview(changes[action]);
   }
   /* indicador deslizante do menu (vertical no desktop, horizontal no celular) */
   function moveInd() {
@@ -101,7 +141,7 @@
   function setState(key, val) {
     if (key === 'mode') {
       if (!available().includes(val)) return;
-      state.mode = val; store.set('mode', val); applyMode(); return;
+      state.mode = val; if (!interview || !interview.active) store.set('mode', val); applyMode(); return;
     }
     if (key === 'proj' || key === 'selected' || key === 'term' || key === 'caseId') { state[key] = val || null; return; }
     if (key === 'kv') { if (['exec', 'financial', 'operational'].includes(val)) state.kv = val; return; }
@@ -113,6 +153,8 @@
 
   function onClick(e) {
     const t = e.target, q = (s) => (t && t.closest ? t.closest(s) : null);
+    const interviewControl = q('[data-interview]');
+    if (interviewControl) { interviewAction(interviewControl.dataset.interview); return; }
     if (q('.search-results')) closeSearch(true);
     const layer = q('[data-layer]');
     if (layer) { const id = layer.dataset.layer; state.layers = state.layers.includes(id) ? state.layers.filter((x) => x !== id) : state.layers.concat(id); render(); refocus('[data-layer="' + id + '"]'); return; }
@@ -157,6 +199,7 @@
     }
     const sm = store.get('mode'), av = available();
     state.mode = av.includes(sm) ? sm : av[0];
+    interview = window.Interview ? window.Interview.create(state, data) : null;
     const cs = [...new Set(data.locations.map((l) => l.country))].sort();
     $('countryFilter').innerHTML = '<option value="all">Todos</option>' + cs.map((c) => '<option>' + C.esc(c) + '</option>').join('');
     $('dataUpdated').textContent = C.fmtDate(data.config.dataUpdated);
@@ -165,6 +208,9 @@
     $('countryFilter').addEventListener('change', (e) => { state.country = e.target.value; render(); });
     $('themeToggle').addEventListener('click', () => setTheme(!document.body.classList.contains('dark')));
     $('tvMode').addEventListener('click', () => setTv(!document.body.classList.contains('tv')));
+    const interviewStart = $('interviewStart'), interviewPanel = $('interviewPanel');
+    if (interviewStart) interviewStart.addEventListener('click', () => updateInterview(() => interview.active ? interview.stop() : interview.start()));
+    if (interviewPanel) interviewPanel.addEventListener('change', (e) => { if (e.target.dataset && e.target.dataset.interviewStep) updateInterview(() => interview.select(Number(e.target.value))); });
     document.addEventListener('click', (e) => {
       const tg = e.target; if (tg && tg.closest && !tg.closest('.search')) closeSearch(false);
       if (tg && tg.closest && tg.closest('.nav-item')) return; onClick(e);
