@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.5.0 — 2026-10-29
+**Composição inspirada no CodeXR Dashboard V16**
+- Navegação horizontal compacta nas onze telas, indicador alinhado e aba ativa revelada com respeito a movimento reduzido.
+- Superfícies claras e tema escuro em cinza profundo, cartão azul em destaque, quatro cartões principais e faixa de quatro sinais.
+- Curva S de CAPEX na abertura, usando a análise já existente e o recorte selecionado; OPEX comparativo em coluna adjacente e três painéis de resumo abaixo.
+- Agenda preservada com sete prazos e rolagem local. Gráficos da abertura no celular mantêm rótulos legíveis por rolagem local.
+- Guia no rodapé, skip link acima da barra superior e atualização das camadas visuais ao trocar o tema.
+- Capturas e documentação atualizadas com o reel indicado como referência; dados e roteiro de entrevista preservados.
+
 ## 2.4.0 — 2026-10-29
 **Painel executivo e preparação para entrevista**
 - Layout coeso em azul-marinho, branco e magenta, com hierarquia, tabelas e gráficos ajustados para desktop e celular.

@@ -57,22 +57,21 @@
     <aside class="sidebar">
       <nav id="mainNav" aria-label="Navegação principal">
         <span id="navInd" class="nav-ind" aria-hidden="true"></span>
-        <button class="nav-item" data-view="consultant" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-dashboard"/></svg><span>Visão do consultor</span></button>
+        <button class="nav-item" data-view="consultant" type="button" aria-label="Visão do consultor"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-dashboard"/></svg><span>Painel</span></button>
         <p class="nav-sec">Rede</p>
         <button class="nav-item" data-view="overview" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-globe"/></svg><span>Visão geral</span></button>
-        <button class="nav-item" data-view="network" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-pin"/></svg><span>Mapa de atuação</span></button>
+        <button class="nav-item" data-view="network" type="button" aria-label="Mapa de atuação"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-pin"/></svg><span>Mapa</span></button>
         <p class="nav-sec">Gestão</p>
         <button class="nav-item" data-view="terminals" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-building"/></svg><span>Terminais</span></button>
-        <button class="nav-item" data-view="projects" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-folder"/></svg><span>Projetos e portfólio</span></button>
+        <button class="nav-item" data-view="projects" type="button" aria-label="Projetos e portfólio"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-folder"/></svg><span>Projetos</span></button>
         <button class="nav-item" data-view="kpis" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-bars"/></svg><span>Indicadores</span></button>
         <button class="nav-item" data-view="business" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-calc"/></svg><span>Business cases</span></button>
         <button class="nav-item" data-view="risks" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-shield"/></svg><span>Riscos</span></button>
-        <button class="nav-item" data-view="suppliers" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-truck"/></svg><span>Fornecedores e malha</span></button>
-        <button class="nav-item" data-view="opportunities" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-bulb"/></svg><span>Novos negócios</span></button>
+        <button class="nav-item" data-view="suppliers" type="button" aria-label="Fornecedores e malha"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-truck"/></svg><span>Fornecedores</span></button>
+        <button class="nav-item" data-view="opportunities" type="button" aria-label="Novos negócios"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-bulb"/></svg><span>Negócios</span></button>
         <p class="nav-sec">Método</p>
-        <button class="nav-item" data-view="governance" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-book"/></svg><span>Governança e fontes</span></button>
+        <button class="nav-item" data-view="governance" type="button" aria-label="Governança e fontes"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-book"/></svg><span>Governança</span></button>
       </nav>
-      <div class="side-note"><span class="side-caption">ESTUDO INDEPENDENTE</span><b>Da evidência à decisão.</b><span>Fontes públicas atualizadas em <span id="dataUpdated">—</span>. Gestão simulada para demonstração.</span><a href="docs/07-roteiro-do-consultor.md" target="_blank" rel="noopener noreferrer">Guia de apresentação ↗</a></div>
     </aside>
     <main id="main">
       <section id="interviewPanel" hidden aria-label="Roteiro de entrevista"></section>
@@ -81,7 +80,7 @@
         <label class="filter">País<select id="countryFilter"><option value="all">Todos</option></select></label>
       </section>
       <div id="appContent" tabindex="-1"><p class="muted">Carregando…</p></div>
-      <footer>Ferramenta analítica independente, sem vínculo oficial. Scores são metodologia própria; fatos públicos citam fonte; em modo demonstração, os valores de gestão são fictícios. Consulte <a href="#governance">Governança e fontes</a>.</footer>
+      <footer><div class="footer-meta"><span>ESTUDO INDEPENDENTE · Fontes públicas em <span id="dataUpdated">—</span></span><a href="docs/07-roteiro-do-consultor.md" target="_blank" rel="noopener noreferrer">Guia de apresentação ↗</a></div>Ferramenta analítica independente, sem vínculo oficial. Scores são metodologia própria; fatos públicos citam fonte; em modo demonstração, os valores de gestão são fictícios. Consulte <a href="#governance">Governança e fontes</a>.</footer>
     </main>
   </div>
   <script src="js/core.js"></script>

@@ -92,16 +92,22 @@
     const changes = { next: () => interview.next(), previous: () => interview.previous(), resume: () => interview.select(interview.index), exit: () => interview.stop() };
     if (changes[action]) updateInterview(changes[action]);
   }
-  /* indicador deslizante do menu (vertical no desktop, horizontal no celular) */
+  /* Indicador horizontal; revela a tela ativa apenas quando sai da area visivel. */
   function moveInd() {
     const ind = $('navInd'), a = document.querySelector('.nav-item.active');
     if (!ind || !a || !a.offsetHeight) return;
-    const horiz = !!(window.matchMedia && matchMedia('(max-width:720px)').matches);
     ind.style.height = a.offsetHeight + 'px';
-    ind.style.width = horiz ? a.offsetWidth + 'px' : '100%';
-    ind.style.transform = 'translate(' + (horiz ? a.offsetLeft : 0) + 'px,' + a.offsetTop + 'px)';
+    ind.style.width = a.offsetWidth + 'px';
+    ind.style.transform = 'translate(' + a.offsetLeft + 'px,' + a.offsetTop + 'px)';
     document.body.classList.add('ind');
-    const nav = $('mainNav'); if (horiz && nav && nav.scrollTo) nav.scrollTo({ left: Math.max(0, a.offsetLeft - 24), behavior: 'smooth' });
+    const nav = $('mainNav');
+    if (!nav || !nav.scrollTo || !nav.clientWidth) return;
+    const left = nav.scrollLeft, right = a.offsetLeft + a.offsetWidth;
+    if (a.offsetLeft >= left && right <= left + nav.clientWidth) return;
+    const target = a.offsetLeft < left ? a.offsetLeft - 24 : right - nav.clientWidth + 24;
+    const next = Math.max(0, Math.min(target, nav.scrollWidth - nav.clientWidth));
+    const reduced = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+    if (Math.abs(next - left) > 1) nav.scrollTo({ left: next, behavior: reduced ? 'auto' : 'smooth' });
   }
 
   /* busca global: termos em AND, sem acento, abre o item no clique ou no Enter */
@@ -187,7 +193,11 @@
     if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('g[data-loc]')) { e.preventDefault(); state.selected = e.target.dataset.loc; render(); refocus('g[data-loc="' + state.selected + '"]'); }
   }
 
-  function setTheme(dark) { document.body.classList.toggle('dark', dark); store.set('theme', dark ? 'dark' : 'light'); $('themeToggle').setAttribute('aria-pressed', String(dark)); }
+  function setTheme(dark) {
+    document.body.classList.toggle('dark', dark); store.set('theme', dark ? 'dark' : 'light'); $('themeToggle').setAttribute('aria-pressed', String(dark));
+    // Atualiza tambem os graficos: evita camadas de texto antigas no compositor ao trocar o tema.
+    if (data) render();
+  }
   function setTv(on) { document.body.classList.toggle('tv', on); $('tvMode').textContent = on ? 'Sair do modo TV' : 'Modo TV'; $('tvMode').setAttribute('aria-pressed', String(on)); }
 
   async function init() {

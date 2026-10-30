@@ -26,6 +26,11 @@ try:
                 sw = pg.evaluate('document.documentElement.scrollWidth')
                 if sw > w + 1: fails.append(f'{v} @ {w}px: estouro horizontal ({sw}px)')
                 if 'NaN' in pg.inner_text('#appContent') or 'undefined' in pg.inner_text('#appContent'): fails.append(f'{v} @ {w}px: NaN/undefined na tela')
+            # O ultimo destino deve ser revelado pela barra horizontal em qualquer largura.
+            pg.wait_for_timeout(500)
+            a, ind, menu = pg.locator('.nav-item.active').bounding_box(), pg.locator('#navInd').bounding_box(), pg.locator('#mainNav').bounding_box()
+            if not a or not ind or any(abs(ind[k] - a[k]) > 2 for k in ('x', 'y', 'width', 'height')): fails.append(f'menu @ {w}px: indicador desalinhado de Governanca')
+            if a and menu and (a['x'] < menu['x'] - 1 or a['x'] + a['width'] > menu['x'] + menu['width'] + 1): fails.append(f'menu @ {w}px: ultimo item deveria estar visivel')
             pg.evaluate("location.hash='kpis'"); pg.wait_for_timeout(200)   # estados internos da tela de KPIs
             def check(label):
                 sw = pg.evaluate('document.documentElement.scrollWidth')
@@ -57,10 +62,10 @@ try:
         bf = pg.evaluate("getComputedStyle(document.querySelector('.panel')).backdropFilter || getComputedStyle(document.querySelector('.panel')).webkitBackdropFilter")
         if not bf or bf == 'none': fails.append('vidro: .panel deveria ter backdrop-filter no desktop')
         a, ind = pg.locator('.nav-item.active').bounding_box(), pg.locator('#navInd').bounding_box()
-        if not ind or abs(ind['y'] - a['y']) > 2 or abs(ind['height'] - a['height']) > 2: fails.append(f'menu: indicador desalinhado do item ativo ({ind} vs {a})')
+        if not a or not ind or any(abs(ind[k] - a[k]) > 2 for k in ('x', 'y', 'width', 'height')): fails.append(f'menu: indicador desalinhado do item ativo ({ind} vs {a})')
         pg.evaluate("location.hash='risks'"); pg.wait_for_timeout(500)
         a, ind = pg.locator('.nav-item.active').bounding_box(), pg.locator('#navInd').bounding_box()
-        if abs(ind['y'] - a['y']) > 2: fails.append('menu: indicador nao acompanhou a troca de tela')
+        if not a or not ind or any(abs(ind[k] - a[k]) > 2 for k in ('x', 'y', 'width', 'height')): fails.append('menu: indicador nao acompanhou a troca de tela')
         pg.evaluate("location.hash='consultant'"); pg.wait_for_timeout(300)
         if pg.locator('.rg').count() != 3 or any((pg.locator('.rg').nth(i).bounding_box() or {'width': 0})['width'] < 60 for i in range(3)): fails.append('aneis: devem existir 3 e ter largura visivel')
         if pg.locator('.cons-rail').count() != 1 or (pg.locator('.cons-rail').bounding_box() or {'height': 0})['height'] > 900: fails.append('painel lateral deve caber na altura da janela (rolagem interna)')

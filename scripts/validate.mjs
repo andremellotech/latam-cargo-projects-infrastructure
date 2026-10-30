@@ -248,8 +248,8 @@ if (S) {
     ok(ratio(rgba(v['on-ink']), rgba(v.ink)) >= 4.5, `tema ${name}: texto sobre fundo escuro/claro de destaque (on-ink) < 4,5`);
     ok(ratio(rgba(v['on-accent']), rgba(v.accent)) >= 4.5, `tema ${name}: balao de valor (on-accent sobre accent) < 4,5`);
   }
-  ['#6a3fe0', '#4b3ad0', '#3a4fd8'].forEach((g) => { const a = ratio([255, 255, 255, 1], rgba(g)), b = ratio(over([255, 255, 255, 0.9], rgba(g)).concat(1), rgba(g)); ok(a >= 4.5 && b >= 4.5, `cartao em destaque: branco sobre ${g} com contraste ${Math.min(a, b).toFixed(2)} < 4,5`); });
-  ['#6a3fe0', '#9b2fb5'].forEach((g) => ok(ratio([255, 255, 255, 1], rgba(g)) >= 4.5, `avatar: branco sobre ${g} < 4,5`));
+  ['#3141bd', '#4b5de6'].forEach((g) => { const a = ratio([255, 255, 255, 1], rgba(g)), b = ratio(over([255, 255, 255, 0.9], rgba(g)).concat(1), rgba(g)); ok(a >= 4.5 && b >= 4.5, `cartao em destaque: branco sobre ${g} com contraste ${Math.min(a, b).toFixed(2)} < 4,5`); });
+  ok(ratio(rgba(light['on-accent']), rgba(light.accent)) >= 4.5 && ratio(rgba(dark['on-accent']), rgba(dark.accent)) >= 4.5, 'avatar: texto sobre accent deve ter contraste >= 4,5');
   ok(/prefers-reduced-transparency/.test(css) && /@supports not \(\(backdrop-filter/.test(css) && /prefers-contrast:more/.test(css) && /prefers-reduced-motion/.test(css), 'tema de vidro deve ter alternativas para transparencia reduzida, sem backdrop-filter, alto contraste e movimento reduzido');
   ok(/body\.tv\{--blur:none/.test(css), 'modo TV deve desligar o desfoque');
 }

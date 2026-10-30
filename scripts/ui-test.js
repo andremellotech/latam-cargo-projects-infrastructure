@@ -36,8 +36,33 @@ const click = (attrs, classes) => { const t = mkEl('t', attrs, classes); doc._l.
 const nav = (v) => navs.find((n) => n.dataset.view === v)._l.click[0]();
 const c = () => els.appContent.innerHTML;
 
+function checkHorizontalNav() {
+  const menu = els.mainNav, scrolls = [];
+  let active = { offsetHeight: 40, offsetWidth: 120, offsetLeft: 120, offsetTop: 4 }, reduced = false;
+  const originalQuery = doc.querySelector, originalMatchMedia = ctx.matchMedia;
+  doc.querySelector = (q) => (q === '.nav-item.active' ? active : null);
+  ctx.matchMedia = (q) => ({ matches: q === '(prefers-reduced-motion: reduce)' && reduced });
+  Object.assign(menu, { scrollLeft: 0, clientWidth: 400, scrollWidth: 1400, scrollTo(options) { scrolls.push(options); this.scrollLeft = options.left; } });
+  nav('risks');
+  chk(els.navInd.style.transform === 'translate(120px,4px)' && els.navInd.style.width === '120px' && els.navInd.style.height === '40px' && bodyCls.has('ind'), 'menu: indicador horizontal tem a posicao e as dimensoes do item ativo no desktop');
+  chk(scrolls.length === 0, 'menu: item ja visivel nao provoca salto na rolagem');
+  active = { offsetHeight: 40, offsetWidth: 160, offsetLeft: 1240, offsetTop: 4 };
+  nav('governance');
+  chk(els.navInd.style.transform === 'translate(1240px,4px)' && els.navInd.style.width === '160px', 'menu: indicador acompanha o ultimo item, Governanca');
+  chk(scrolls.length === 1 && scrolls[0].left === 1000 && scrolls[0].behavior === 'smooth', 'menu: ultimo item fora da area visivel e revelado sem ultrapassar o fim do menu');
+  nav('governance');
+  chk(scrolls.length === 1, 'menu: selecionar de novo o item visivel preserva a rolagem');
+  reduced = true; active = { offsetHeight: 40, offsetWidth: 124, offsetLeft: 0, offsetTop: 4 };
+  nav('consultant');
+  chk(scrolls.length === 2 && scrolls[1].left === 0 && scrolls[1].behavior === 'auto', 'menu: movimento reduzido revela o primeiro item sem animacao');
+  doc.querySelector = originalQuery; ctx.matchMedia = originalMatchMedia;
+  delete menu.scrollTo;
+  nav('consultant');
+}
+
 (async () => {
   await ready(); await new Promise((r) => setTimeout(r, 30));
+  checkHorizontalNav();
   if (withoutDemo) {
     chk(els.interviewStart.hidden && els.interviewStart.disabled, 'entrevista: sem demo a entrada deve ficar oculta e desabilitada');
     chk(els.interviewStart.attrs['aria-pressed'] === 'false' && els.interviewPanel.hidden, 'entrevista: sem demo o roteiro permanece inativo');
@@ -155,8 +180,7 @@ const c = () => els.appContent.innerHTML;
     doc.activeElement = { tagName: 'INPUT' }; prevented = 0; doc._l.keydown.forEach((fn) => fn({ key: '/', preventDefault() { prevented++; } })); chk(prevented === 0, 'atalho "/" nao interfere ao digitar em um campo'); doc.activeElement = undefined;
     click({ 'data-set': 'mode', 'data-val': 'public' }, []); sin.value = 'P04'; sin._l.input[0](); chk(!res.innerHTML.includes('Projeto') && res.innerHTML.includes('Nada encontrado'), 'busca: no modo publico nao acha projetos'); sin.value = ''; sin._l.input[0]();
     click({ 'data-set': 'mode', 'data-val': 'demo' }, []);
-    doc.querySelector = (q) => (q === '.nav-item.active' ? { offsetHeight: 40, offsetWidth: 200, offsetLeft: 0, offsetTop: 120 } : null); nav('risks');
-    chk(els.navInd.style.transform === 'translate(0px,120px)' && els.navInd.style.height === '40px' && bodyCls.has('ind'), 'menu: indicador acompanha o item ativo'); doc.querySelector = () => null; }
+  }
   nav('consultant'); chk(c().includes('cons-rail') && c().includes('Próximos prazos'), 'consultor: painel lateral');
   click({ 'data-goto': 'network' }, []); chk(els.pageTitle.textContent === 'Mapa de atuação', 'consultor: atalho Mapa'); nav('consultant');
   // tema e TV

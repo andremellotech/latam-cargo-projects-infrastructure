@@ -46,11 +46,12 @@
     }).sort((a, b) => a.due.localeCompare(b.due) || a.id.localeCompare(b.id));
     const first = decisions[0];
     const focus = first ? '<section class="decision-focus" aria-labelledby="decisionTitle"><div class="focus-main"><p class="eyebrow">PAUTA DO COMITÊ <span> / ' + esc(first.id) + ' · prioridade por prazo</span></p><h2 id="decisionTitle">' + esc(first.title) + '</h2><p class="focus-recommendation">' + esc(first.recommendation) + '</p><p class="focus-evidence"><b>Evidência:</b> ' + esc(first.why) + '</p></div><div class="focus-action">' + dueChip(C.daysBetween(asOf, first.due)) + '<p><b>' + esc(first.owner) + '</b><span>Decidir até ' + esc(C.fmtDate(first.due)) + '</span></p>' + H.go(H.refView(first.link), linkRef(first.link), 'Analisar ' + esc(first.link)) + '</div></section>' : '';
-    const cards = '<div class="grid cards">' +
-      H.stat('Orçamento do portfólio', C.fmtMi(pf.budget), pf.n + ' projetos no recorte', '', 'layers') +
+    const cards = '<div class="grid cards portfolio-cards">' +
+      H.stat('Orçamento do portfólio', C.fmtMi(pf.budget), pf.n + ' projetos no recorte', 'feature', 'layers') +
       H.stat('CAPEX realizado', C.fmtMi(pf.actual), C.fmtDec(pf.budget ? (pf.actual / pf.budget) * 100 : 0, 0) + '% do orçamento', '', 'money') +
-      H.stat('Previsão no término (EAC)', C.fmtMi(pf.eac), H.rag(overRag, (over > 0 ? '+' : '') + C.fmtMi(over) + ' (' + C.fmtDec(pf.vacPct * 100, 1) + '%)'), 'feature', 'trend') +
-      H.stat('Projetos por status', '<span class="big-chips">' + ['r', 'a', 'g', 'n'].map((k) => '<span class="chip st-' + k + '"><i></i>' + pf.counts[k] + '</span>').join('') + '</span>', 'crítico · atenção · no plano · não iniciado', '', 'folder') +
+      H.stat('Previsão no término (EAC)', C.fmtMi(pf.eac), H.rag(overRag, (over > 0 ? '+' : '') + C.fmtMi(over) + ' (' + C.fmtDec(pf.vacPct * 100, 1) + '%)'), '', 'trend') +
+      H.stat('Projetos por status', '<span class="big-chips">' + ['r', 'a', 'g', 'n'].map((k) => '<span class="chip st-' + k + '"><i></i>' + pf.counts[k] + '</span>').join('') + '</span>', 'crítico · atenção · no plano · não iniciado', '', 'folder') + '</div>';
+    const signals = '<div class="portfolio-signals" aria-label="Sinais do portfólio">' +
       H.stat('SPI / CPI do portfólio', '<span class="st-txt st-' + idxRag(pf.spi) + '">' + idx(pf.spi) + '</span> / <span class="st-txt st-' + idxRag(pf.cpi) + '">' + idx(pf.cpi) + '</span>', 'prazo / custo (1,00 = conforme o plano)', '', 'gauge') +
       H.stat('Ocupação da rede', occ == null ? '–' : C.fmtDec(occ, 1) + '%', occ == null ? '' : H.rag(C.rag(occ, 85, 'min', 0.04), 'meta ≤ 85%'), '', 'building') +
       H.stat('Riscos críticos', String(crit), 'pontuação ≥ 15 (de 25)', '', 'alert') +
@@ -70,8 +71,12 @@
     if (hasBud) {
       const br = A.opexBridge(mg, vis, lastI), rows = br.rows;
       if (rows.length) bars = '<section class="panel"><h2>OPEX por terminal: orçado x realizado' + demoTag(state) + '</h2><p class="muted small">R$ mi, último mês. ▲ marca terminais acima de 3% do orçado. ' + H.go('kpis', 'opexAdherence', 'Ver a ponte do desvio') + '</p>' +
-        X.bars({ labels: rows.map((r) => r.code), series: [{ name: 'Orçado', values: rows.map((r) => r.budget), cls: 's0' }, { name: 'Realizado', values: rows.map((r) => r.actual), cls: 's1' }], flags: rows.map((r) => (r.budget && r.actual / r.budget > 1.03 ? '▲ +' + C.fmtDec((r.actual / r.budget - 1) * 100, 0) + '%' : '')), fmt: (v) => C.fmtDec(v / 1e6, 1), w: 400, h: 300, fit: true, title: 'OPEX orçado e realizado por terminal no último mês' }) + '</section>';
+        X.bars({ labels: rows.map((r) => r.code), series: [{ name: 'Orçado', values: rows.map((r) => r.budget), cls: 's0' }, { name: 'Realizado', values: rows.map((r) => r.actual), cls: 's1' }], flags: rows.map((r) => (r.budget && r.actual / r.budget > 1.03 ? '▲ +' + C.fmtDec((r.actual / r.budget - 1) * 100, 0) + '%' : '')), fmt: (v) => C.fmtDec(v / 1e6, 1), w: 600, h: 245, fit: true, title: 'OPEX orçado e realizado por terminal no último mês' }) + '</section>';
     }
+    const curveLabels = tlLabels(mg.meta), curveIndex = C.clamp(curveLabels.indexOf(asOf.slice(0, 7)), 0, curveLabels.length - 1);
+    const sc = A.scurve(projs, curveLabels.length, curveIndex);
+    const curve = '<section class="panel"><div class="dhead"><h2>Evolução do CAPEX' + demoTag(state) + '</h2>' + H.go('projects', null, 'Portfólio') + '</div><p class="muted small">Acumulado em R$ mi · realizado até ' + esc(C.fmtDate(asOf)) + '; área sombreada indica previsão.</p>' +
+      X.line({ labels: curveLabels, xfmt: C.monthLabel, h: 245, w: 600, fit: true, yMin: 0, fmt: (v) => C.fmtDec(v / 1e6, 0), shadeFrom: curveIndex + 1, markIdx: curveIndex, series: [{ name: 'Planejado', values: sc.planned, cls: 'c1', dashed: true }, { name: 'Realizado', values: sc.actual, cls: 'c0', strong: true }, { name: 'Previsão', values: sc.forecast, cls: 'c2', dashed: true }], refs: [{ value: pf.budget, label: 'Orçamento', align: 'left' }], endLabels: [1], title: 'Curva S de CAPEX do recorte selecionado' }) + '</section>';
     const ups = A.upcoming(mg, asOf, vis, 7);
     const grp = (d) => (d <= 7 ? 'Esta semana' : d <= 31 ? 'Este mês' : 'Depois');
     let lastG = '';
@@ -79,10 +84,10 @@
     const quick = [['network', 'pin', 'Mapa'], ['projects', 'folder', 'Projetos'], ['kpis', 'bars', 'KPIs'], ['business', 'calc', 'Casos']].map((q) => '<button type="button" class="qa" data-goto="' + q[0] + '">' + H.icon(q[1]) + '<span>' + q[2] + '</span></button>').join('');
     const rail = '<aside class="cons-rail" aria-label="Atalhos e próximos prazos"><section class="panel"><div class="who"><span class="avatar" aria-hidden="true">PI</span><div><b>Painel do consultor</b><small>Posição em ' + esc(C.fmtDate(asOf)) + '</small></div></div><div class="quick">' + quick + '</div></section>' +
       '<section class="panel"><h2>' + H.icon('calendar') + ' Próximos prazos' + demoTag(state) + '</h2>' + dl + '</section></aside>';
-    return focus + '<div class="cons"><div class="cons-main"><div class="callout lead">' + H.icon('calendar') + ' Posição em <b>' + esc(C.fmtDate(asOf)) + '</b>' + demoTag(state) + '<span class="snapshot-note">Recomendações para discussão e validação do comitê.</span></div>' + cards +
-      '<div class="grid two eq">' + rings + bars + '</div>' + (mg.series.defs.some((x) => x.tier === 1) ? kpiBoard(state, mg, vis) : '') +
+    return focus + '<div class="cons"><div class="cons-main"><div class="callout lead">' + H.icon('calendar') + ' Posição em <b>' + esc(C.fmtDate(asOf)) + '</b>' + demoTag(state) + '<span class="snapshot-note">Recomendações para discussão e validação do comitê.</span></div>' + cards + signals +
+      '<div class="grid two eq dashboard-charts">' + curve + bars + '</div><div class="dashboard-lower">' + rings + rail + '</div>' + (mg.series.defs.some((x) => x.tier === 1) ? kpiBoard(state, mg, vis) : '') +
       '<div class="grid two"><section class="panel"><h2>O que importa agora</h2>' + insHtml + '</section><section class="panel"><h2>Decisões necessárias</h2>' + (decs ? '<ul class="dec-list">' + decs + '</ul>' : H.empty('Nenhuma decisão vinculada ao recorte selecionado.')) + '</section></div>' +
-      '<section class="panel" id="actionPlan"><h2>Plano de 30, 60 e 90 dias</h2><div class="grid three">' + hz + '</div></section></div>' + rail + '</div>';
+      '<section class="panel" id="actionPlan"><h2>Plano de 30, 60 e 90 dias</h2><div class="grid three">' + hz + '</div></section></div></div>';
   });
 
   /* ------------------------------------------------------------ Terminais */

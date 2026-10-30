@@ -13,13 +13,15 @@ Portal estático em **HTML, CSS e JavaScript, sem dependências de aplicação**
 > - **Demonstração:** dados de gestão **fictícios** (`data/demo/`) para mostrar como ficaria a gestão completa. Faixa de aviso permanente.
 > - **Internos:** os dados reais, no mesmo formato da demonstração (`data/internal/`), só em ambiente privado.
 
-![Painel executivo com a pauta de decisões antes das métricas](docs/img/17-painel-executivo.png)
+![Painel V16 em tema escuro, com quatro cartões e gráficos de CAPEX e OPEX](docs/img/20-v16-escuro.png)
+
+[Visualizar o tema claro](docs/img/17-painel-executivo.png).
 
 ## Visão do consultor
-A primeira tela responde: **o que decidir, com quais evidências e até quando.** A pauta de decisões aparece antes das métricas. As mensagens-chave calculadas por regras, os próximos prazos e os atalhos conectam cada recomendação ao projeto, risco ou contrato correspondente. Indicadores do portfólio, metas, OPEX orçado × realizado, KPIs executivos da rede e plano de 30, 60 e 90 dias apoiam o aprofundamento.
+A primeira tela responde: **o que decidir, com quais evidências e até quando.** A abertura reúne **quatro cartões principais**, uma **faixa de quatro sinais secundários** e gráficos largos de **CAPEX (curva S) e OPEX orçado × realizado**, em duas colunas no desktop. Três resumos abaixo dos gráficos apoiam a leitura. A pauta de decisões, as mensagens-chave calculadas por regras, os próximos prazos e os atalhos conectam cada recomendação ao projeto, risco ou contrato correspondente. KPIs executivos da rede e plano de 30, 60 e 90 dias permitem aprofundar a conversa.
 
-## Layout executivo e apresentação guiada
-Paleta de **azul-marinho, branco e magenta**, superfícies mais sóbrias e hierarquia orientada à pauta de decisões. A navegação, a **busca global** (`/` para focar), os temas claro e escuro e o modo TV continuam disponíveis. O Modo entrevista organiza a exposição em cinco etapas sem alterar os dados da demonstração.
+## Layout V16 e apresentação guiada
+**Navegação horizontal compacta**, canvas cinza-claro, superfícies brancas e um cartão em azul vivo dão forma à composição inspirada no Dashboard V16 do CodeXR. Quatro cartões principais, quatro sinais secundários, gráficos largos em duas colunas e três resumos organizam a abertura. O tema escuro usa superfícies em preto e cinza. A **busca global** (`/` para focar), os temas e o modo TV continuam disponíveis; o Modo entrevista mantém suas cinco etapas e os mesmos dados demonstrativos.
 
 ![Modo entrevista com contexto, sugestão de fala e navegação pelas cinco etapas](docs/img/18-modo-entrevista.png)
 
@@ -27,12 +29,12 @@ O painel se adapta à tela do celular, mantendo a pauta de decisões e o acesso 
 
 <img src="docs/img/19-mobile-executivo.png" alt="Painel executivo em celular" width="320">
 
-Referências de inspiração visual pública: [perfil CodeXR no Topmate](https://topmate.io/code_xr) e [Dashboard v14](https://topmate.io/code_xr/2363309). Nenhuma compra foi realizada e nenhum código desses produtos foi utilizado. O documento [`docs/09-design-vidro.md`](docs/09-design-vidro.md) e as [capturas anteriores](docs/img/) preservam o **histórico** da interface em vidro, sem representar o layout atual.
+Referências de inspiração visual pública: [reel do Dashboard V16](https://www.instagram.com/reel/De1uvwiza9R/) e [perfil CodeXR no Topmate](https://topmate.io/code_xr). A adaptação usa código próprio; nenhuma compra foi realizada e nenhum código comercial foi utilizado. As decisões visuais e os critérios de verificação estão em [`docs/10-layout-v16.md`](docs/10-layout-v16.md). O documento [`docs/09-design-vidro.md`](docs/09-design-vidro.md) e as [capturas anteriores](docs/img/) preservam o **histórico** da interface em vidro.
 
 ## Telas
 | Tela | O que mostra |
 |---|---|
-| Visão do consultor | Pauta de decisões antes das métricas, mensagens-chave, indicadores do portfólio, metas, OPEX orçado × realizado, plano de 30/60/90 dias, próximos prazos e atalhos |
+| Visão do consultor | Quatro cartões principais, faixa de quatro sinais, curva S de CAPEX e comparação de OPEX, três resumos, pauta de decisões, mensagens-chave, KPIs executivos e plano de 30/60/90 dias |
 | Visão geral / Mapa de atuação | Fatos públicos, score, camadas de demanda, corredores; mapa colorível por score, ocupação ou saúde |
 | Terminais | Mapa de calor de saúde (6 dimensões), KPIs com semáforo e tendência, drill-down com sazonalidade |
 | Projetos e portfólio | Status com SPI/CPI/EAC, Gantt com semáforo, curva S, matriz impacto x esforço, CAPEX por tipo |
@@ -93,7 +95,7 @@ docs/      escopo, governança, metodologia, dicionário de dados, modo demonstr
 ```
 
 ## Documentação
-[Escopo](docs/01-visao-geral/escopo.md) · [Metodologia de gestão](docs/03-metodologia/metodologia-gestao.md) · [Score por localidade](docs/03-metodologia/score-demanda.md) · [Dicionário de dados](docs/04-padroes/dicionario-dados.md) · [Modo demonstração](docs/05-modo-demonstracao.md) · [Referências de mercado](docs/06-referencias-de-mercado.md) · [Roteiro de entrevista e apresentação](docs/07-roteiro-do-consultor.md) · [Revisão executiva dos KPIs](docs/08-revisao-executiva-de-kpis.md) · [Histórico do design em vidro](docs/09-design-vidro.md) · [Publicação](docs/PUBLICACAO.md)
+[Escopo](docs/01-visao-geral/escopo.md) · [Metodologia de gestão](docs/03-metodologia/metodologia-gestao.md) · [Score por localidade](docs/03-metodologia/score-demanda.md) · [Dicionário de dados](docs/04-padroes/dicionario-dados.md) · [Modo demonstração](docs/05-modo-demonstracao.md) · [Referências de mercado](docs/06-referencias-de-mercado.md) · [Roteiro de entrevista e apresentação](docs/07-roteiro-do-consultor.md) · [Revisão executiva dos KPIs](docs/08-revisao-executiva-de-kpis.md) · [Layout V16](docs/10-layout-v16.md) · [Histórico do design em vidro](docs/09-design-vidro.md) · [Publicação](docs/PUBLICACAO.md)
 
 ## Qualidade
 `npm test` reúne validação de dados e regras, renderização das telas, testes da pauta executiva e do roteiro de entrevista e integração do `app.js` com um DOM simulado. As verificações cobrem fórmulas financeiras e EVM, vínculos, datas, links, escape de HTML, isolamento do modo público e identidades dos KPIs, incluindo a ponte da contribuição, as metas e a consolidação da rede.
