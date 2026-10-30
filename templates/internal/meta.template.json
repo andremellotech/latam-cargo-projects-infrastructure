@@ -1,7 +1,0 @@
-{
-  "label": "Dados internos",
-  "asOf": "AAAA-MM-DD",
-  "currency": "BRL",
-  "timeline": { "start": "AAAA-MM", "months": 18, "asOfIdx": 9 },
-  "note": "Remova este arquivo de exemplo e use o formato de data/demo/*.json. Não inclua \"synthetic\": true."
-}

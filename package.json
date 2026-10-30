@@ -1,12 +1,10 @@
 {
   "name": "latam-cargo-projects-infrastructure",
-  "version": "2.5.0",
+  "version": "3.0.0",
   "private": true,
-  "description": "Portal analítico estático de projetos e infraestrutura de terminais de carga, com visão do consultor",
+  "description": "Visão executiva única de consultoria de projetos e infraestrutura: quatro indicadores, três decisões e plano de execução",
   "scripts": {
-    "start": "python3 -m http.server 8080",
-    "build:demo": "python3 scripts/build-demo.py",
-    "validate": "node scripts/validate.mjs",
-    "test": "node scripts/validate.mjs && node scripts/smoke-test.mjs && node scripts/briefing-test.mjs && node scripts/interview-test.js && node scripts/ui-test.js && node scripts/ui-test.js --without-demo"
+    "start": "node scripts/serve.mjs",
+    "test": "node --test scripts/consulting-test.mjs scripts/app-test.mjs"
   }
 }
